@@ -23,6 +23,7 @@
     </dependency>
 
     <!-- Project src dependencies -->
+    <!-- Used for PDF rendering -->
     <dependency>
       <groupId>com</groupId>
       <artifactId>com</artifactId>
@@ -31,6 +32,7 @@
       <systemPath>${project.basedir}/src/main/resources/com.jar</systemPath>
     </dependency>
 
+    <!-- Used for Image rendering -->
     <dependency>
       <groupId>jfig</groupId>
       <artifactId>jfig</artifactId>
@@ -39,6 +41,7 @@
       <systemPath>${project.basedir}/src/main/resources/jfig.jar</systemPath>
     </dependency>
 
+    <!-- Used for ... pretty much everything in the model -->
     <dependency>
       <groupId>toools</groupId>
       <artifactId>toools</artifactId>
