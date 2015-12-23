@@ -21,7 +21,10 @@ public abstract class ModelFactory
 	{
 		factoryMap.put(null, LmuParser.getParser());
 		factoryMap.put("lmu", LmuParser.getParser());
-		factoryMap.put("jar", new PackageAnalyzer());
+		factoryMap.put("jar", new JarFileAnalyser());
+		factoryMap.put("pckg", new PackageAnalyzer());
+		factoryMap.put("classes", null);    // TODO: 23/12/15 implements ClassesAnalyzer
+
 	}
 
 	public static ModelFactory getModelFactory(String type)
