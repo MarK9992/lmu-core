@@ -1,6 +1,6 @@
 package org.lucci.lmu.input;
 
-import org.lucci.lmu.*;
+import org.lucci.lmu.model.*;
 import org.lucci.lmu.test.DynamicCompiler;
 import toools.ClassName;
 import toools.Clazz;

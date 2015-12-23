@@ -3,7 +3,7 @@ package org.lucci.lmu.renderer;
 import java.awt.GridLayout;
 import java.nio.ByteBuffer;
 
-import org.lucci.lmu.Model;
+import org.lucci.lmu.model.Model;
 import org.lucci.lmu.output.GraphVizBasedViewFactory;
 import org.lucci.lmu.output.WriterException;
 

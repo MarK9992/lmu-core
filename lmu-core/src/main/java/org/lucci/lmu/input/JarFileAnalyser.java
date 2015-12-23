@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.lucci.lmu.AssociationRelation;
-import org.lucci.lmu.Attribute;
-import org.lucci.lmu.Entities;
-import org.lucci.lmu.Entity;
-import org.lucci.lmu.InheritanceRelation;
-import org.lucci.lmu.Model;
-import org.lucci.lmu.Operation;
-import org.lucci.lmu.Visibility;
+import org.lucci.lmu.model.AssociationRelation;
+import org.lucci.lmu.model.Attribute;
+import org.lucci.lmu.model.Entities;
+import org.lucci.lmu.model.Entity;
+import org.lucci.lmu.model.InheritanceRelation;
+import org.lucci.lmu.model.Model;
+import org.lucci.lmu.model.Operation;
+import org.lucci.lmu.model.Visibility;
 import org.lucci.lmu.test.DynamicCompiler;
 
 import toools.ClassContainer;

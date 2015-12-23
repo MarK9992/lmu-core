@@ -1,4 +1,4 @@
-package org.lucci.lmu;
+package org.lucci.lmu.model;
 
 import java.util.HashSet;
 import java.util.Set;

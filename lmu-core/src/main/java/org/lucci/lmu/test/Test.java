@@ -3,9 +3,9 @@ package org.lucci.lmu.test;
 import java.io.File;
 import java.io.IOException;
 
-import org.lucci.lmu.Entities;
-import org.lucci.lmu.Entity;
-import org.lucci.lmu.Model;
+import org.lucci.lmu.model.Entities;
+import org.lucci.lmu.model.Entity;
+import org.lucci.lmu.model.Model;
 import org.lucci.lmu.input.JarFileAnalyser;
 import org.lucci.lmu.input.ParseError;
 

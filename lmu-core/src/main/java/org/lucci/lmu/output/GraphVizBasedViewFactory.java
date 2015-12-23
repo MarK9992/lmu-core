@@ -3,9 +3,8 @@ package org.lucci.lmu.output;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.lucci.lmu.Model;
+import org.lucci.lmu.model.Model;
 
-import toools.extern.ExternalProgram;
 import toools.extern.Proces;
 
 /*

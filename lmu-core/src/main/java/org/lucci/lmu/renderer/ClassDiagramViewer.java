@@ -2,7 +2,7 @@ package org.lucci.lmu.renderer;
 
 import javax.swing.JPanel;
 
-import org.lucci.lmu.Model;
+import org.lucci.lmu.model.Model;
 import org.lucci.lmu.output.WriterException;
 
 

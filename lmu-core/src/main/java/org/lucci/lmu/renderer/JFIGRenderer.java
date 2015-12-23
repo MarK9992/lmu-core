@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.lucci.lmu.Model;
+import org.lucci.lmu.model.Model;
 import org.lucci.lmu.output.GraphVizBasedViewFactory;
 import org.lucci.lmu.output.WriterException;
 

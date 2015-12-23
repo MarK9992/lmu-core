@@ -1,4 +1,4 @@
-package org.lucci.lmu;
+package org.lucci.lmu.model;
 
 /*
  * Created on Oct 10, 2004

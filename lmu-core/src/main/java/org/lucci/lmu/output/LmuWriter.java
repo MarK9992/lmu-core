@@ -1,15 +1,15 @@
 package org.lucci.lmu.output;
 
-import org.lucci.lmu.AssociationRelation;
-import org.lucci.lmu.Attribute;
-import org.lucci.lmu.Entity;
-import org.lucci.lmu.InheritanceRelation;
-import org.lucci.lmu.Model;
-import org.lucci.lmu.ModelElement;
-import org.lucci.lmu.Operation;
-import org.lucci.lmu.Relation;
-import org.lucci.lmu.Relations;
-import org.lucci.lmu.Visibility;
+import org.lucci.lmu.model.AssociationRelation;
+import org.lucci.lmu.model.Attribute;
+import org.lucci.lmu.model.Entity;
+import org.lucci.lmu.model.InheritanceRelation;
+import org.lucci.lmu.model.Model;
+import org.lucci.lmu.model.ModelElement;
+import org.lucci.lmu.model.Operation;
+import org.lucci.lmu.model.Relation;
+import org.lucci.lmu.model.Relations;
+import org.lucci.lmu.model.Visibility;
 
 /*
  * Created on Oct 3, 2004

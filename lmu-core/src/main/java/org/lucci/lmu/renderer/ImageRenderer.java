@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 
-import org.lucci.lmu.Model;
+import org.lucci.lmu.model.Model;
 import org.lucci.lmu.output.GraphVizBasedViewFactory;
 import org.lucci.lmu.output.WriterException;
 
