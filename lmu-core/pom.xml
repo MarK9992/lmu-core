@@ -22,44 +22,13 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Project src dependencies -->
     <dependency>
       <groupId>com</groupId>
       <artifactId>com</artifactId>
       <version>1.0</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/src/main/resources/com.jar</systemPath>
-    </dependency>
-
-    <dependency>
-      <groupId>de</groupId>
-      <artifactId>de</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/de.jar</systemPath>
-    </dependency>
-
-    <dependency>
-      <groupId>java4unix</groupId>
-      <artifactId>java4unix</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/java4unix.jar</systemPath>
-    </dependency>
-
-    <dependency>
-      <groupId>javassist</groupId>
-      <artifactId>javassist</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/javassist.jar</systemPath>
-    </dependency>
-
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javax</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/src/main/resources/javax.jar</systemPath>
     </dependency>
 
     <dependency>
