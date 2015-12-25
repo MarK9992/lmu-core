@@ -11,5 +11,12 @@
 
     <artifactId>eclipse-plugin</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>fr.unice.polytech.si5.reverseEngineering</groupId>
+            <artifactId>lmu-core</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
