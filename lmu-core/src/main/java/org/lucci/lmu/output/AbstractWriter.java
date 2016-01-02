@@ -16,11 +16,6 @@ public abstract class AbstractWriter
 {
 	public abstract byte[] writeModel(Model diagram)
 		throws WriterException;
-	
-
-
-
-    
     
 	static Map<String, AbstractWriter> factoryMap = new HashMap<String, AbstractWriter>();
 	

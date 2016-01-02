@@ -18,14 +18,6 @@ public class GraphVizBasedViewFactory extends AbstractWriter
 {
 	private final String outputType;
 
-    public final static Collection<String> supportedOutputTypes = Arrays
-            .asList(new String[] { "canon", "dot", "xdot", "cmap", "dia",
-                    "fig", "gd", "gd2", "gif", "hpgl", "imap", "cmapx",
-                    "ismap", "jpg", "jpeg", "mif", "mp", "pcl", "pic", "plain",
-                    "plain-ext", "png", "ps", "ps2", "svg", "svgz", "vrml",
-                    "vtx", "wbmp" });
-    
-
 	public GraphVizBasedViewFactory(String type)
 	{
 		this.outputType = type;
