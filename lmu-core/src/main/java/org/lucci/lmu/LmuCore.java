@@ -7,5 +7,13 @@ package org.lucci.lmu;
  */
 public interface LmuCore {
 	
+	// Constants
+	
+	final String DEFAULT_OUTPUT_PATH = "."; // TODO really?
+	
+	// Methods
+	
 	void analyzePackage(String packageName);
+	
+	void analyzePackageAndExport(String packageName, String outputPath);
 }
