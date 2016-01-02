@@ -3,3 +3,8 @@
 *.iml
 target/
 bin/
+
+# eclipse
+*.project
+*.settings
+*.classpath
