@@ -3,6 +3,8 @@ package org.lucci.lmu.output;
 import java.io.File;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.model.Model;
 
 import toools.io.FileUtilities;
@@ -16,6 +18,12 @@ import toools.io.file.RegularFile;
  *
  */
 public class ModelExporterImpl implements ModelExporter {
+	
+	// Constants
+	
+	private final static Logger LOGGER = LogManager.getLogger("ModelExporter");
+	
+	// Methods
 
 	@Override
 	public void exportToFile(Model model, String filePath) {
@@ -24,20 +32,20 @@ public class ModelExporterImpl implements ModelExporter {
 		AbstractWriter factory = AbstractWriter.getTextFactory(fileExtension);
 
 		if (factory == null) {
-			System.err.println("Fatal error: Do not know how to generate '" + fileExtension + "' code");
+			LOGGER.error("Fatal error: Do not know how to generate '" + fileExtension + "' code");
 		}
 		else {
 			try {
 				byte[] outputBytes = factory.writeModel(model);
 				
-				System.out.println("Writing file " + filePath);
+				LOGGER.info("Writing file " + filePath);
 				out.setContent(outputBytes);
 			}
 			catch (WriterException ex) {
-				System.err.println(ex.getMessage());
+				LOGGER.error(ex.getMessage());
 			}
 			catch (IOException ex) {
-				System.err.println("I/O error while writing file " + filePath);
+				LOGGER.error("I/O error while writing file " + filePath);
 			}
 		}
 	}
