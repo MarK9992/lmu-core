@@ -22,8 +22,8 @@ public class PackageAnalyzer extends ModelFactory {
 	}
 
 	@Override
-	public Model createModel(byte[] data) throws ParseError {
-		Model model = new Model();
+	public IModel createModel(byte[] data) throws ParseError {
+		IModel model = new Model();
 		primitiveMap.put(void.class, Entities.findEntityByName(model, "void"));
 		primitiveMap.put(int.class, Entities.findEntityByName(model, "int"));
 		primitiveMap.put(long.class, Entities.findEntityByName(model, "long"));
@@ -94,7 +94,7 @@ public class PackageAnalyzer extends ModelFactory {
 		return c.getPackage() == null ? Entity.DEFAULT_NAMESPACE : c.getPackage().getName();
 	}
 
-	private void fillModel(Model model) {
+	private void fillModel(IModel model) {
 		for (Entity entity : new HashSet<Entity>(model.getEntities())) {
 			if (!entity.isPrimitive()) {
 				Class<?> clazz = entity_class.get(entity);
@@ -105,7 +105,7 @@ public class PackageAnalyzer extends ModelFactory {
 		}
 	}
 
-	private void initInheritance(Class<?> clazz, Entity entity, Model model) {
+	private void initInheritance(Class<?> clazz, Entity entity, IModel model) {
 		// this collection will store the super class and super interfaces for
 		// the given class
 		Set<Class<?>> supers = new HashSet<Class<?>>();
@@ -130,7 +130,7 @@ public class PackageAnalyzer extends ModelFactory {
 		}
 	}
 
-	private void initAttributes(Class<?> clazz, Entity entity, Model model) {
+	private void initAttributes(Class<?> clazz, Entity entity, IModel model) {
 		System.out.println(clazz);
 		System.out.println(clazz.getClassLoader().getClass());
 
@@ -194,7 +194,7 @@ public class PackageAnalyzer extends ModelFactory {
 		}
 	}
 
-	private void initOperations(Class<?> clazz, Entity entity, Model model) {
+	private void initOperations(Class<?> clazz, Entity entity, IModel model) {
 		try {
 			for (Method method : clazz.getDeclaredMethods()) {
 				Entity typeEntity = getEntity(model, method.getReturnType());
@@ -248,7 +248,7 @@ public class PackageAnalyzer extends ModelFactory {
 		}
 	}
 
-	private Entity getEntity(Model model, Class<?> c) {
+	private Entity getEntity(IModel model, Class<?> c) {
 		Entity e = (Entity) primitiveMap.get(c);
 
 		if (e == null) {
@@ -277,7 +277,7 @@ public class PackageAnalyzer extends ModelFactory {
 		}
 	}
 
-	public Model createModel(File file) throws ParseError, IOException {
+	public IModel createModel(File file) throws ParseError, IOException {
 		byte[] data = FileUtilities.getFileContent(file);
 		return createModel(data);
 	}

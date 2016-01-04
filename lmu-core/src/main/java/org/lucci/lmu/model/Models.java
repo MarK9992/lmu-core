@@ -16,7 +16,7 @@ import java.util.Vector;
  */
 public class Models
 {
-    public static Collection<ModelElement> findAllModelElementsInModel(Model model)
+    public static Collection<ModelElement> findAllModelElementsInModel(IModel model)
     {
         Collection<ModelElement> res = new Vector<ModelElement>();
         res.addAll(model.getEntities());
@@ -63,7 +63,7 @@ public class Models
         }
     }
 
-	public static void describeNamespace(Model model, String namespace)
+	public static void describeNamespace(IModel model, String namespace)
 	{
 		Set<Entity> entities = Entities.findEntityWhoseNameSpaceMatches(model.getEntities(), namespace);
 

@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 
+import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.model.Model;
 import org.lucci.lmu.output.GraphVizBasedViewFactory;
 import org.lucci.lmu.output.WriterException;
@@ -33,7 +34,7 @@ public class ImageRenderer extends ClassDiagramViewer
 
 	};
 	private String format = "png";
-	private Model model;
+	private IModel model;
 	private Image image;
 
 	public ImageRenderer()
@@ -70,7 +71,7 @@ public class ImageRenderer extends ClassDiagramViewer
 	}
 
 	@Override
-	public synchronized void setModel(Model model) throws WriterException
+	public synchronized void setModel(IModel model) throws WriterException
 	{
 			this.model = model;
 			GraphVizBasedViewFactory imgFactory = new GraphVizBasedViewFactory(format);

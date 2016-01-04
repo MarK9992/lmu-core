@@ -1,15 +1,6 @@
 package org.lucci.lmu.output;
 
-import org.lucci.lmu.model.AssociationRelation;
-import org.lucci.lmu.model.Attribute;
-import org.lucci.lmu.model.Entity;
-import org.lucci.lmu.model.InheritanceRelation;
-import org.lucci.lmu.model.Model;
-import org.lucci.lmu.model.ModelElement;
-import org.lucci.lmu.model.Operation;
-import org.lucci.lmu.model.Relation;
-import org.lucci.lmu.model.Relations;
-import org.lucci.lmu.model.Visibility;
+import org.lucci.lmu.model.*;
 
 /*
  * Created on Oct 3, 2004
@@ -20,7 +11,7 @@ import org.lucci.lmu.model.Visibility;
  */
 public class LmuWriter extends AbstractWriter
 {
-	public byte[] writeModel(Model model)
+	public byte[] writeModel(IModel model)
 	{
 		StringBuilder text = new StringBuilder();
 

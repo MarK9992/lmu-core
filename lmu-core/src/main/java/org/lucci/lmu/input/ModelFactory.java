@@ -3,7 +3,7 @@ package org.lucci.lmu.input;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.lucci.lmu.model.Model;
+import org.lucci.lmu.model.IModel;
 
 /*
  * Created on Oct 11, 2004
@@ -32,5 +32,5 @@ public abstract class ModelFactory
 		return factoryMap.get(type);
 	}
 
-	public abstract Model createModel(byte[] data) throws ParseError, ModelException;
+	public abstract IModel createModel(byte[] data) throws ParseError, ModelException;
 }

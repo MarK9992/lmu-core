@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
+import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.model.Model;
 import org.lucci.lmu.output.AbstractWriter;
 import org.lucci.lmu.output.WriterException;
@@ -28,7 +29,7 @@ public abstract class TextRenderer extends ClassDiagramViewer
 	}
 
 	@Override
-    public synchronized void setModel(Model model) throws WriterException
+    public synchronized void setModel(IModel model) throws WriterException
 	{
 		AbstractWriter factory = getWriter();
 		area.setText(new String(factory.writeModel(model)));

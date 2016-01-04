@@ -29,7 +29,7 @@ public class Relations
 		return Collections.filter(relations, new Filter.ClassFilter(InheritanceRelation.class));
 	}
 
-	public static List<Relation> findRelationsDeclaredBy(Entity entity, Model model)
+	public static List<Relation> findRelationsDeclaredBy(Entity entity, IModel model)
 	{
 		List<Relation> rels = new ArrayList<Relation>();
 

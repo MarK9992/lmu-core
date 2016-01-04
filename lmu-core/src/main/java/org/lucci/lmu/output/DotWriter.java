@@ -4,16 +4,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.lucci.lmu.model.AssociationRelation;
-import org.lucci.lmu.model.Attribute;
-import org.lucci.lmu.model.Entity;
-import org.lucci.lmu.model.Group;
-import org.lucci.lmu.model.InheritanceRelation;
-import org.lucci.lmu.model.Model;
-import org.lucci.lmu.model.ModelElement;
-import org.lucci.lmu.model.Operation;
-import org.lucci.lmu.model.Relation;
-import org.lucci.lmu.model.Visibility;
+import org.lucci.lmu.model.*;
 
 /*
  * Created on Oct 2, 2004
@@ -27,7 +18,7 @@ public class DotWriter extends AbstractWriter
     private String fontName = "Times";
 
     @Override
-    public byte[] writeModel(Model model) throws WriterException
+    public byte[] writeModel(IModel model) throws WriterException
     {
 	StringBuffer buf = new StringBuffer();
 	buf.append("digraph ClassDiagram\n{");

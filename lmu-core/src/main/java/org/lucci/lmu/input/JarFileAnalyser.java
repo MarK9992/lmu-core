@@ -18,14 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.lucci.lmu.model.AssociationRelation;
-import org.lucci.lmu.model.Attribute;
-import org.lucci.lmu.model.Entities;
-import org.lucci.lmu.model.Entity;
-import org.lucci.lmu.model.InheritanceRelation;
-import org.lucci.lmu.model.Model;
-import org.lucci.lmu.model.Operation;
-import org.lucci.lmu.model.Visibility;
+import org.lucci.lmu.model.*;
 import org.lucci.lmu.test.DynamicCompiler;
 
 import toools.ClassContainer;
@@ -54,9 +47,9 @@ public class JarFileAnalyser extends ModelFactory
 	}
 
 	@Override
-	public Model createModel(byte[] data) throws ParseError
+	public IModel createModel(byte[] data) throws ParseError
 	{
-		Model model = new Model();
+		IModel model = new Model();
 		primitiveMap.put(void.class, Entities.findEntityByName(model, "void"));
 		primitiveMap.put(int.class, Entities.findEntityByName(model, "int"));
 		primitiveMap.put(long.class, Entities.findEntityByName(model, "long"));
@@ -153,7 +146,7 @@ public class JarFileAnalyser extends ModelFactory
 		return c.getPackage() == null ? Entity.DEFAULT_NAMESPACE : c.getPackage().getName();
 	}
 
-	private void fillModel(Model model)
+	private void fillModel(IModel model)
 	{
 		for (Entity entity : new HashSet<Entity>(model.getEntities()))
 		{
@@ -167,7 +160,7 @@ public class JarFileAnalyser extends ModelFactory
 		}
 	}
 
-	private void initInheritance(Class<?> clazz, Entity entity, Model model)
+	private void initInheritance(Class<?> clazz, Entity entity, IModel model)
 	{
 		// this collection will store the super class and super interfaces for
 		// the given class
@@ -195,7 +188,7 @@ public class JarFileAnalyser extends ModelFactory
 		}
 	}
 
-	private void initAttributes(Class<?> clazz, Entity entity, Model model)
+	private void initAttributes(Class<?> clazz, Entity entity, IModel model)
 	{
 		System.out.println(clazz);
 		System.out.println(clazz.getClassLoader().getClass());
@@ -273,7 +266,7 @@ public class JarFileAnalyser extends ModelFactory
 		}
 	}
 
-	private void initOperations(Class<?> clazz, Entity entity, Model model)
+	private void initOperations(Class<?> clazz, Entity entity, IModel model)
 	{
 		try
 		{
@@ -337,7 +330,7 @@ public class JarFileAnalyser extends ModelFactory
 		}
 	}
 
-	private Entity getEntity(Model model, Class<?> c)
+	private Entity getEntity(IModel model, Class<?> c)
 	{
 		Entity e = (Entity) primitiveMap.get(c);
 
@@ -377,7 +370,7 @@ public class JarFileAnalyser extends ModelFactory
 		}
 	}
 
-	public Model createModel(File file) throws ParseError, IOException
+	public IModel createModel(File file) throws ParseError, IOException
 	{
 		byte[] data = FileUtilities.getFileContent(file);
 		return createModel(data);

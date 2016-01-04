@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.model.Model;
 import org.lucci.lmu.output.GraphVizBasedViewFactory;
 import org.lucci.lmu.output.WriterException;
@@ -43,7 +44,7 @@ public class JFIGRenderer extends ClassDiagramViewer
 	}
 
 	@Override
-	public synchronized void setModel(Model model) throws WriterException
+	public synchronized void setModel(IModel model) throws WriterException
 	{
 		GraphVizBasedViewFactory imgFactory = new GraphVizBasedViewFactory("fig");
 		byte[] bytes = imgFactory.writeModel(model);

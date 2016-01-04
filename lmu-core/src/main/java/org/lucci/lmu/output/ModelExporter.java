@@ -1,5 +1,6 @@
 package org.lucci.lmu.output;
 
+import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.model.Model;
 
 /**
@@ -17,5 +18,5 @@ public interface ModelExporter {
 	 * @param model the model to export
 	 * @param filePath the exported file location
 	 */
-	public void exportToFile(Model model, String filePath);
+	public void exportToFile(IModel model, String filePath);
 }

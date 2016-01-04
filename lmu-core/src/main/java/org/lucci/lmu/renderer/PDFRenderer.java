@@ -3,6 +3,7 @@ package org.lucci.lmu.renderer;
 import java.awt.GridLayout;
 import java.nio.ByteBuffer;
 
+import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.model.Model;
 import org.lucci.lmu.output.GraphVizBasedViewFactory;
 import org.lucci.lmu.output.WriterException;
@@ -35,7 +36,7 @@ public class PDFRenderer extends ClassDiagramViewer
 	}
 
 	@Override
-	public synchronized void setModel(Model model) throws WriterException
+	public synchronized void setModel(IModel model) throws WriterException
 	{
 		GraphVizBasedViewFactory imgFactory = new GraphVizBasedViewFactory("pdf");
 		byte[] bytes = imgFactory.writeModel(model);

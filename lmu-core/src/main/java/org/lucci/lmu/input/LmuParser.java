@@ -11,18 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.lucci.lmu.model.AssociationRelation;
-import org.lucci.lmu.model.Attribute;
-import org.lucci.lmu.model.Entities;
-import org.lucci.lmu.model.Entity;
-import org.lucci.lmu.model.Group;
-import org.lucci.lmu.model.InheritanceRelation;
-import org.lucci.lmu.model.Model;
-import org.lucci.lmu.model.ModelElement;
-import org.lucci.lmu.model.Models;
-import org.lucci.lmu.model.Operation;
-import org.lucci.lmu.model.TypedNamedModelElement;
-import org.lucci.lmu.model.Visibility;
+import org.lucci.lmu.model.*;
 
 import toools.collections.Collections;
 import toools.io.file.RegularFile;
@@ -38,22 +27,22 @@ public class LmuParser extends ModelFactory {
 	private LmuParser() {
 	}
 
-	private final Map<RegularFile, Model> modelCache = new HashMap<RegularFile, Model>();
+	private final Map<RegularFile, IModel> modelCache = new HashMap<RegularFile, IModel>();
 	private int lineNumber;
-	private Model model;
+	private IModel model;
 	private Entity currentEntity = null;
 	private String comment = "";
 
 	@Override
-	public Model createModel(byte[] data) throws ParseError, ModelException {
+	public IModel createModel(byte[] data) throws ParseError, ModelException {
 		return createModel(new String(data));
 	}
 
-	public Model createModel(String text) throws ParseError, ModelException {
+	public IModel createModel(String text) throws ParseError, ModelException {
 		return createModel(Arrays.asList(text.split("\n")));
 	}
 
-	private Model createModel(List<String> lines) throws ParseError, ModelException {
+	private IModel createModel(List<String> lines) throws ParseError, ModelException {
 		List<List<String>> tokens = new ArrayList<List<String>>();
 
 		for (String thisLine : lines) {
@@ -153,7 +142,7 @@ public class LmuParser extends ModelFactory {
 		}
 	}
 
-	private Model createMode(List<List<String>> tokens) throws ParseError, ModelException {
+	private IModel createMode(List<List<String>> tokens) throws ParseError, ModelException {
 		this.model = new Model();
 		createEntities(model, tokens);
 		comment = "";
@@ -525,7 +514,7 @@ public class LmuParser extends ModelFactory {
 						if (modelFactory == null) {
 							syntax(file.getPath() + ": dunno what to do with files extension " + fileExtension);
 						} else {
-							Model newModel = this.modelCache.get(file.getPath());
+							IModel newModel = this.modelCache.get(file.getPath());
 
 							if (newModel == null) {
 								try {
@@ -553,7 +542,7 @@ public class LmuParser extends ModelFactory {
 		throw new ParseError(lineNumber, s, suggestion);
 	}
 
-	private void createEntities(Model model, List<List<String>> lines) throws ParseError {
+	private void createEntities(IModel model, List<List<String>> lines) throws ParseError {
 		// first instantiate all explicitely declared entities
 		// for this, only "entity" lines are considered
 		for (int lineNumber = 1; lineNumber <= lines.size(); ++lineNumber) {

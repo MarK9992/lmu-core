@@ -3,6 +3,7 @@ package org.lucci.lmu.output;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.model.Model;
 
 import toools.extern.Proces;
@@ -24,7 +25,7 @@ public class GraphVizBasedViewFactory extends AbstractWriter
 	}
 
 	@Override
-	public byte[] writeModel(Model model)
+	public byte[] writeModel(IModel model)
 		throws WriterException
 	{
 		DotWriter dotTextFactory = new DotWriter();

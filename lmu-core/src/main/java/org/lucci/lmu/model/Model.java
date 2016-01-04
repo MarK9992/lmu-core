@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * @author luc.hogie
  */
-public class Model extends ModelElement
+public class Model extends ModelElement implements IModel
 {
 	private Set<Entity> entities = new HashSet<Entity>();
 	private Set<Relation> relations = new HashSet<Relation>();
@@ -98,7 +98,7 @@ public class Model extends ModelElement
 		}
 	}
 
-	public void merge(Model om)
+	public void merge(IModel om)
 	{
 		for (Entity e : om.getEntities())
 		{

@@ -3,12 +3,7 @@ package org.lucci.lmu.output;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.lucci.lmu.model.Attribute;
-import org.lucci.lmu.model.Entity;
-import org.lucci.lmu.model.Model;
-import org.lucci.lmu.model.ModelElement;
-import org.lucci.lmu.model.Operation;
-import org.lucci.lmu.model.Visibility;
+import org.lucci.lmu.model.*;
 
 
 
@@ -25,7 +20,8 @@ public class JavaSourceWriter extends AbstractWriter
 	/* (non-Javadoc)
 	 * @see org.lucci.lmu.ViewFactory#createViewData(org.lucci.lmu.model.ClassDiagram)
 	 */
-	public byte[] writeModel(Model model) throws WriterException
+	@Override
+	public byte[] writeModel(IModel model) throws WriterException
 	{
 		String source = "";
 		Collection<Entity> entities = ModelElement.findVisibleModelElements(model.getEntities());

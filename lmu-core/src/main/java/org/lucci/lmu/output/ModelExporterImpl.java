@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.model.Model;
 
 import toools.io.FileUtilities;
@@ -26,7 +27,7 @@ public class ModelExporterImpl implements ModelExporter {
 	// Methods
 
 	@Override
-	public void exportToFile(Model model, String filePath) {
+	public void exportToFile(IModel model, String filePath) {
 		RegularFile out = new RegularFile(filePath);
 		String fileExtension = FileUtilities.getFileNameExtension(filePath);
 		AbstractWriter factory = AbstractWriter.getTextFactory(fileExtension);

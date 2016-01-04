@@ -50,7 +50,7 @@ public class Entities
 		return res;
 	}
 
-	public static Entity findEntityByName(Model model, String name)
+	public static Entity findEntityByName(IModel model, String name)
 	{
 		if (model == null) throw new NullPointerException();
 		if (name == null) throw new NullPointerException();
@@ -88,7 +88,7 @@ public class Entities
 	}
 
 	
-	public static Set<Set<Entity>> findConnectedComponents(Set<Entity> entities, final Model model)
+	public static Set<Set<Entity>> findConnectedComponents(Set<Entity> entities, final IModel model)
 	{
 		entities = new HashSet<Entity>(entities);
 		Set<Set<Entity>> connectedComponents = new HashSet<Set<Entity>>();
@@ -104,12 +104,12 @@ public class Entities
 		return connectedComponents;
 	}
 
-	public static Set<Entity> findLargestConnectedComponent(Set<Entity> entities, final Model model)
+	public static Set<Entity> findLargestConnectedComponent(Set<Entity> entities, final IModel model)
 	{
 		return (Set<Entity>) Collections.getLargestCollections(findConnectedComponents(entities, model)).iterator().next();
 	}
 
-	public static Set<Entity> findIsolatedEntities(Set<Entity> entities, final Model model)
+	public static Set<Entity> findIsolatedEntities(Set<Entity> entities, final IModel model)
 	{
 		Set<Entity> isolatedEntities = new HashSet<Entity>();
 
@@ -129,7 +129,7 @@ public class Entities
 		return new HashSet<Entity>(Collections.filter(entities, new Filters.VisiblityFilter(Visibility.PUBLIC)));
 	}
 
-	public static Collection<Relation> removeEntities(Collection<Entity> entitiesToRemove, Model model)
+	public static Collection<Relation> removeEntities(Collection<Entity> entitiesToRemove, IModel model)
 	{
 		Collection<Relation> removed = new HashSet<Relation>();
 
@@ -141,7 +141,7 @@ public class Entities
 		return removed;
 	}
 
-	public static Collection<Entity> getNeighborEntities(Entity entity, Model model)
+	public static Collection<Entity> getNeighborEntities(Entity entity, IModel model)
 	{
 		Collection<Entity> neighbors = new HashSet<Entity>();
 		Collection<Relation> relations = Relations.findRelationsInvolving(entity, model.getRelations());
@@ -154,7 +154,7 @@ public class Entities
 		return neighbors;
 	}
 
-	public static Set<Entity> getNeighborEntities(Collection<Entity> entities, Model model)
+	public static Set<Entity> getNeighborEntities(Collection<Entity> entities, IModel model)
 	{
 		Set<Entity> neighbors = new HashSet<Entity>();
 
@@ -181,7 +181,7 @@ public class Entities
 		return matchingEntities;
 	}
 
-	public static Set<Entity> findEntitiesConnectedTo(Set<Entity> entities, int distance, Model model)
+	public static Set<Entity> findEntitiesConnectedTo(Set<Entity> entities, int distance, IModel model)
 	{
 		if (distance < 0) throw new IllegalArgumentException();
 		Set<Entity> res = new HashSet<Entity>(entities);
@@ -199,7 +199,7 @@ public class Entities
 		return res;
 	}
 
-	public static void removeJavaPackageNames(Set<Entity> entities, Model model) throws ModelException
+	public static void removeJavaPackageNames(Set<Entity> entities, IModel model) throws ModelException
 	{
 		for (Entity entity : entities)
 		{
@@ -257,7 +257,7 @@ public class Entities
 		}
 	}
 
-	public static void retainEntities(Set<Entity> s, Model model)
+	public static void retainEntities(Set<Entity> s, IModel model)
 	{
 		removeEntities((Set<Entity>) Collections.difference(model.getEntities(), s), model);
 	}
@@ -293,7 +293,7 @@ public class Entities
 		return res;
 	}
 
-	public static Collection<? extends Entity> findSuperEntities(Entity subEntity, Model model)
+	public static Collection<? extends Entity> findSuperEntities(Entity subEntity, IModel model)
 	{
 		Set<Entity> res = new HashSet<Entity>();
 		
