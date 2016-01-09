@@ -19,7 +19,7 @@ public class LmuCoreController implements LmuCore {
 	@Override
 	public void analyzePackage(String packageName) {
 		// TODO
-		// modelExporter.exportToFile(model, DEFAULT_OUTPUT_PATH);
+		// modelExporter.exportToFile(model, DEFAULT_OUTPUT_PATH); // TODO add extension
 	}
 
 	@Override
