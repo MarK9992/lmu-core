@@ -32,6 +32,8 @@ public class ModelExporterImpl implements ModelExporter {
 		String fileExtension = FileUtilities.getFileNameExtension(filePath);
 		AbstractWriter factory = AbstractWriter.getTextFactory(fileExtension);
 
+        LOGGER.debug(filePath);
+        LOGGER.debug(fileExtension);
 		if (factory == null) {
 			LOGGER.error("Fatal error: Do not know how to generate '" + fileExtension + "' code");
 		}
