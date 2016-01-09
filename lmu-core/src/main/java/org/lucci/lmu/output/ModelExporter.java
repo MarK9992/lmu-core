@@ -18,5 +18,5 @@ public interface ModelExporter {
 	 * @param model the model to export
 	 * @param filePath the exported file location
 	 */
-	public void exportToFile(IModel model, String filePath);
+	void exportToFile(IModel model, String filePath);
 }

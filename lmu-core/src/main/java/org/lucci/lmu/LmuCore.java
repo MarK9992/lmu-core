@@ -9,7 +9,7 @@ public interface LmuCore {
 	
 	// Constants
 	
-	final String DEFAULT_OUTPUT_PATH = "."; // TODO really?
+	String DEFAULT_OUTPUT_PATH = "."; // TODO really?
 	
 	// Methods
 	
