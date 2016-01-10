@@ -45,4 +45,13 @@ public class LmuCoreTest {
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.pdf");
         // check the files contents by yourself now
     }
+
+    @Test
+    public void analyzeJarToPngTest() throws FileNotFoundException{
+        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+
+        controller.analyzeJar("file://" + url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
+        // check the files contents by yourself now
+    }
 }
