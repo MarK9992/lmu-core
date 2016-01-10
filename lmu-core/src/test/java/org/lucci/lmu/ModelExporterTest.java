@@ -17,10 +17,6 @@ import java.nio.file.*;
 
 /**
  * @author Marc Karassev
- *
-factoryMap.put("lmu", new LmuWriter());
-factoryMap.put("dot", new DotWriter());
-factoryMap.put("java", new JavaSourceWriter());
  */
 public class ModelExporterTest {
 
@@ -45,6 +41,27 @@ public class ModelExporterTest {
     }
 
     // Tests
+
+    @Test
+    public void exportToLmuTest() throws FileNotFoundException {
+        modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.lmu");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.lmu");
+        // check the file content by yourself now
+    }
+
+    @Test
+    public void exportToDotTest() throws FileNotFoundException {
+        modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.dot");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.dot");
+        // check the file content by yourself now
+    }
+
+    @Test
+    public void exportToJavaTest() throws FileNotFoundException {
+        modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.java");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.java");
+        // check the file content by yourself now
+    }
 
     @Test
     public void exportToPdfTest() throws FileNotFoundException {

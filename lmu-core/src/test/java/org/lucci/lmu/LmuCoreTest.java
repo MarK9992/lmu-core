@@ -47,6 +47,33 @@ public class LmuCoreTest {
     }
 
     @Test
+    public void analyzeJarToLmuTest() throws FileNotFoundException{
+        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+
+        controller.analyzeJar("file://" + url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
+        // check the files contents by yourself now
+    }
+
+    @Test
+    public void analyzeJarToDotTest() throws FileNotFoundException{
+        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+
+        controller.analyzeJar("file://" + url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
+        // check the files contents by yourself now
+    }
+
+    @Test
+    public void analyzeJarToJavaTest() throws FileNotFoundException{
+        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+
+        controller.analyzeJar("file://" + url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
+        // check the files contents by yourself now
+    }
+
+    @Test
     public void analyzeJarToPngTest() throws FileNotFoundException{
         URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
 
