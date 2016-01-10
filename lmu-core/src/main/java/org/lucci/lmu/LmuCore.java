@@ -9,11 +9,15 @@ public interface LmuCore {
 	
 	// Constants
 	
-	String DEFAULT_OUTPUT_PATH = "./out";
+	String DEFAULT_OUTPUT_PATH = "./out/";
 	
 	// Methods
 	
 	void analyzePackage(String packageName);
 	
-	void analyzePackageAndExport(String packageName, String outputPath);
+	void analyzePackage(String packageName, String outputPath);
+
+	void analyzeJar(String jarPath);
+
+    void analyzeJar(String jarPath, String outputPath);
 }

@@ -22,7 +22,7 @@ public class ModelExporterImpl implements ModelExporter {
 	
 	// Constants
 	
-	private final static Logger LOGGER = LogManager.getLogger("ModelExporter");
+	private final static Logger LOGGER = LogManager.getLogger();
 	
 	// Methods
 

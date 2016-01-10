@@ -46,8 +46,8 @@ public class ModelExporterTest {
     public void exportToPdfTest() throws FileNotFoundException {
         FileInputStream fileInputStream;
 
-        modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "/sample-org.pdf");
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "/sample-org.pdf");
+        modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.pdf");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.pdf");
         // check the file content by yourself now
     }
 }

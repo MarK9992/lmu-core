@@ -1,7 +1,14 @@
 package org.lucci.lmu;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.lucci.lmu.input.JarFileAnalyser;
+import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
+
+import java.io.File;
+import java.net.URL;
 
 /**
  * @author Benjamin Benni, Marc Karassev
@@ -9,6 +16,10 @@ import org.lucci.lmu.output.ModelExporterImpl;
  * This class is an implementation of the app's API.
  */
 public class LmuCoreController implements LmuCore {
+
+    // Constants
+
+    private static final Logger LOGGER = LogManager.getLogger();
 	
 	// Attributes
 	
@@ -23,8 +34,31 @@ public class LmuCoreController implements LmuCore {
 	}
 
 	@Override
-	public void analyzePackageAndExport(String packageName, String outputPath) {
+	public void analyzePackage(String packageName, String outputPath) {
 		// TODO
 		// modelExporter.exportToFile(model, outputPath);
+	}
+
+	@Override
+	public void analyzeJar(String jarPath) {
+		String[] split = jarPath.split("/|\\\\"); // TODO does it works on every OS?
+        String outputName = split[split.length - 1];
+
+        outputName = outputName.replaceAll(".jar$", ".pdf");
+        LOGGER.debug(outputName);
+        analyzeJar(jarPath, DEFAULT_OUTPUT_PATH + outputName);
+	}
+
+	@Override
+	public void analyzeJar(String jarPath, String outputPath) {
+        try {
+            URL url = new URL(jarPath);
+            File file = new File(url.getPath());
+            IModel model = new JarFileAnalyser().createModel(file);
+
+            modelExporter.exportToFile(model, outputPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 }

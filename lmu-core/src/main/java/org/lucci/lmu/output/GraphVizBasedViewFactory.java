@@ -17,7 +17,7 @@ public class GraphVizBasedViewFactory extends AbstractWriter {
 
     // Constants
 
-    private static final Logger LOGGER = LogManager.getLogger("GraphVizBasedViewFactory");
+    private static final Logger LOGGER = LogManager.getLogger();
 
     // Attributes
 
