@@ -54,4 +54,31 @@ public class LmuCoreTest {
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
         // check the files contents by yourself now
     }
+
+    @Test
+    public void analyzeJarToPsTest() throws FileNotFoundException{
+        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+
+        controller.analyzeJar("file://" + url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
+        // check the files contents by yourself now
+    }
+
+    @Test
+    public void analyzeJarToSvgTest() throws FileNotFoundException{
+        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+
+        controller.analyzeJar("file://" + url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
+        // check the files contents by yourself now
+    }
+
+    @Test
+    public void analyzeJarToFigTest() throws FileNotFoundException{
+        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+
+        controller.analyzeJar("file://" + url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
+        // check the files contents by yourself now
+    }
 }

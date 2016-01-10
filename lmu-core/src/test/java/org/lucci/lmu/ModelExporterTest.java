@@ -17,6 +17,10 @@ import java.nio.file.*;
 
 /**
  * @author Marc Karassev
+ *
+factoryMap.put("lmu", new LmuWriter());
+factoryMap.put("dot", new DotWriter());
+factoryMap.put("java", new JavaSourceWriter());
  */
 public class ModelExporterTest {
 
@@ -53,6 +57,27 @@ public class ModelExporterTest {
     public void exportToPngTest() throws FileNotFoundException {
         modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.png");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.png");
+        // check the file content by yourself now
+    }
+
+    @Test
+    public void exportToPsTest() throws FileNotFoundException {
+        modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.ps");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.ps");
+        // check the file content by yourself now
+    }
+
+    @Test
+    public void exportToFidTest() throws FileNotFoundException {
+        modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.fig");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.fig");
+        // check the file content by yourself now
+    }
+
+    @Test
+    public void exportToSvgTest() throws FileNotFoundException {
+        modelExporter.exportToFile(sampleOrgModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.svg");
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.svg");
         // check the file content by yourself now
     }
 }
