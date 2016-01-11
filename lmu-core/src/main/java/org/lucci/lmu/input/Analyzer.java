@@ -3,6 +3,7 @@ package org.lucci.lmu.input;
 import org.lucci.lmu.model.Entities;
 import org.lucci.lmu.model.Entity;
 import org.lucci.lmu.model.IModel;
+import org.lucci.lmu.model.InheritanceRelation;
 import toools.io.file.RegularFile;
 
 import java.util.*;
@@ -39,5 +40,51 @@ public abstract class Analyzer extends ModelBuilder {
 
     public String computeEntityName(Class<?> c) {
         return c.getName().substring(c.getName().lastIndexOf('.') + 1);
+    }
+
+    public String computeEntityNamespace(Class<?> c) {
+        return c.getPackage() == null ? Entity.DEFAULT_NAMESPACE : c.getPackage().getName();
+    }
+
+    protected void initInheritance(Class<?> clazz, Entity entity, IModel model) {
+        // this collection will store the super class and super interfaces for
+        // the given class
+        Set<Class<?>> supers = new HashSet<Class<?>>();
+
+        // first get the superclass, if any
+        if (clazz.getSuperclass() != null && clazz.getSuperclass() != Object.class
+                && clazz.getSuperclass() != Enum.class) {
+            supers.add(clazz.getSuperclass());
+        }
+
+        // then find all super interfaces
+        supers.addAll(Arrays.asList(clazz.getInterfaces()));
+
+        for (Class<?> c : supers) {
+            Entity superentity = getEntity(model, c);
+
+            // if the superentity exists in the model
+            if (superentity != null) {
+                // define the corresponding relation
+                model.addRelation(new InheritanceRelation(entity, superentity));
+            }
+        }
+    }
+
+    protected Entity getEntity(IModel model, Class<?> c) {
+        Entity e = (Entity) primitiveMap.get(c);
+
+        if (e == null) {
+            e = Entities.findEntityByName(model, computeEntityName(c));
+
+            if (e == null && c != Object.class && Entities.isValidEntityName(computeEntityName(c))) {
+                e = new Entity();
+                e.setPrimitive(true);
+                e.setName(computeEntityName(c));
+                model.addEntity(e);
+            }
+        }
+
+        return e;
     }
 }

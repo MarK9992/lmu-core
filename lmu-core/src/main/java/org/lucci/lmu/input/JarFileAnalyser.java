@@ -76,11 +76,6 @@ public class JarFileAnalyser extends Analyzer
 		return model;
 	}
 
-	public String computeEntityNamespace(Class<?> c)
-	{
-		return c.getPackage() == null ? Entity.DEFAULT_NAMESPACE : c.getPackage().getName();
-	}
-
 	private void fillModel(IModel model)
 	{
 		for (Entity entity : new HashSet<Entity>(model.getEntities()))
@@ -91,34 +86,6 @@ public class JarFileAnalyser extends Analyzer
 				initInheritance(clazz, entity, model);
 				initAttributes(clazz, entity, model);
 				initOperations(clazz, entity, model);
-			}
-		}
-	}
-
-	private void initInheritance(Class<?> clazz, Entity entity, IModel model)
-	{
-		// this collection will store the super class and super interfaces for
-		// the given class
-		Set<Class<?>> supers = new HashSet<Class<?>>();
-
-		// first get the superclass, if any
-		if (clazz.getSuperclass() != null && clazz.getSuperclass() != Object.class && clazz.getSuperclass() != Enum.class)
-		{
-			supers.add(clazz.getSuperclass());
-		}
-
-		// then find all super interfaces
-		supers.addAll(Arrays.asList(clazz.getInterfaces()));
-
-		for (Class<?> c : supers)
-		{
-			Entity superentity = getEntity(model, c);
-
-			// if the superentity exists in the model
-			if (superentity != null)
-			{
-				// define the corresponding relation
-				model.addRelation(new InheritanceRelation(entity, superentity));
 			}
 		}
 	}
@@ -260,26 +227,6 @@ public class JarFileAnalyser extends Analyzer
 			// ex.printStackTrace();
 
 		}
-	}
-
-	private Entity getEntity(IModel model, Class<?> c)
-	{
-		Entity e = (Entity) primitiveMap.get(c);
-
-		if (e == null)
-		{
-			e = Entities.findEntityByName(model, computeEntityName(c));
-
-			if (e == null && c != Object.class && Entities.isValidEntityName(computeEntityName(c)))
-			{
-				e = new Entity();
-				e.setPrimitive(true);
-				e.setName(computeEntityName(c));
-				model.addEntity(e);
-			}
-		}
-
-		return e;
 	}
 
 	private Visibility getVisibility(Member m)
