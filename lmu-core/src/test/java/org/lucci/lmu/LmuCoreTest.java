@@ -20,9 +20,10 @@ import static org.junit.Assert.assertNotNull;
  */
 public class LmuCoreTest {
 
-    // Variables
+    // Constants
 
-    private LmuCore controller = new LmuCoreController();
+    private static final LmuCore CONTROLLER = new LmuCoreController();
+    private static final URL SAMPLE_ORG_URL = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
 
     // Set-ups and tear-downs
 
@@ -33,88 +34,65 @@ public class LmuCoreTest {
         for (Path filePath: stream) {
             Files.delete(filePath);
         }
+        assertNotNull(SAMPLE_ORG_URL);
     }
 
     // Tests
 
     @Test
     public void analyzeJarToPdfTest() throws FileNotFoundException{
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-
-        assertNotNull(url);
-        controller.analyzeJar(url.getPath());
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath());
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.pdf");
-        controller.analyzeJar(url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.pdf");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.pdf");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.pdf");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToLmuTest() throws FileNotFoundException{
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-
-        assertNotNull(url);
-        controller.analyzeJar(url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToDotTest() throws FileNotFoundException{
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-
-        assertNotNull(url);
-        controller.analyzeJar(url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToJavaTest() throws FileNotFoundException{
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-
-        assertNotNull(url);
-        controller.analyzeJar(url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToPngTest() throws FileNotFoundException{
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-
-        assertNotNull(url);
-        controller.analyzeJar(url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToPsTest() throws FileNotFoundException{
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-
-        assertNotNull(url);
-        controller.analyzeJar(url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToSvgTest() throws FileNotFoundException{
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-
-        assertNotNull(url);
-        controller.analyzeJar(url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToFigTest() throws FileNotFoundException{
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-
-        assertNotNull(url);
-        controller.analyzeJar(url.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
         // check the files contents by yourself now
     }
