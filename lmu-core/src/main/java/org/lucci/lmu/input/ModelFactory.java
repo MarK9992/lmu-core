@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public abstract class ModelFactory {
 
-	static private Map<String, Analyzer> factoryMap = new HashMap<>();
+	static private Map<String, ModelBuilder> factoryMap = new HashMap<>();
 
 	static
 	{
@@ -24,7 +24,7 @@ public abstract class ModelFactory {
 
 	}
 
-	public static Analyzer getModelFactory(String type)
+	public static ModelBuilder getModelFactory(String type)
 	{
 		return factoryMap.get(type);
 	}

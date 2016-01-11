@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class LmuParser extends Analyzer {
+public class LmuParser extends ModelBuilder {
 	private final static LmuParser parser = new LmuParser();
 
 	public static LmuParser getParser() {
@@ -501,7 +501,7 @@ public class LmuParser extends Analyzer {
 						syntax("File name has not extension, which is required to guess its content type: "
 								+ file.getPath());
 					} else {
-						Analyzer modelFactory = ModelFactory.getModelFactory(fileExtension.toLowerCase());
+						ModelBuilder modelFactory = ModelFactory.getModelFactory(fileExtension.toLowerCase());
 
 						if (modelFactory == null) {
 							syntax(file.getPath() + ": dunno what to do with files extension " + fileExtension);
