@@ -14,7 +14,6 @@ public abstract class Analyzer extends ModelBuilder {
 
     // Attributes
 
-    protected Collection<RegularFile> knownJarFiles = new HashSet<RegularFile>();
     protected Map<Class<?>, Entity> primitiveMap = new HashMap<Class<?>, Entity>();
     protected Map<Entity, Class<?>> entity_class = new HashMap<Entity, Class<?>>();
 

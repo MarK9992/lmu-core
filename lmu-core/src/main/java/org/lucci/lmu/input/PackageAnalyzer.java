@@ -14,10 +14,6 @@ import java.util.*;
 
 public class PackageAnalyzer extends Analyzer {
 
-	public Collection<RegularFile> getJarFiles() {
-		return this.knownJarFiles;
-	}
-
 	@Override
 	public IModel createModel(byte[] data) throws ParseError {
 		IModel model = new Model();
