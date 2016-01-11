@@ -76,22 +76,6 @@ public class JarFileAnalyser extends Analyzer
 		return model;
 	}
 
-	protected static Class<?> createClassNamed(String fullName)
-	{
-		ClassName cn = Clazz.getClassName(fullName);
-		String src = "";
-
-		if (cn.pkg != null)
-		{
-			src += "package " + cn.pkg + ";";
-		}
-
-		src += "public class " + cn.name + " {}";
-
-		// System.out.println(src);
-		return DynamicCompiler.compile(fullName, src);
-	}
-
 	/*
 	 * public static void main(String[] args) {
 	 * System.out.println(createClassNamed("lucci.Coucou"));
