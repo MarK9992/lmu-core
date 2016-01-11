@@ -76,17 +76,6 @@ public class JarFileAnalyser extends Analyzer
 		return model;
 	}
 
-	/*
-	 * public static void main(String[] args) {
-	 * System.out.println(createClassNamed("lucci.Coucou"));
-	 * System.out.println(createClassNamed("Coucou")); }
-	 */
-
-	public String computeEntityName(Class<?> c)
-	{
-		return c.getName().substring(c.getName().lastIndexOf('.') + 1);
-	}
-
 	public String computeEntityNamespace(Class<?> c)
 	{
 		return c.getPackage() == null ? Entity.DEFAULT_NAMESPACE : c.getPackage().getName();

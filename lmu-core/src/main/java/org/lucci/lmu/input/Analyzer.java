@@ -36,4 +36,8 @@ public abstract class Analyzer extends ModelBuilder {
         primitiveMap.put(java.util.Date.class, Entities.findEntityByName(model, "date"));
         primitiveMap.put(java.sql.Date.class, Entities.findEntityByName(model, "date"));
     }
+
+    public String computeEntityName(Class<?> c) {
+        return c.getName().substring(c.getName().lastIndexOf('.') + 1);
+    }
 }

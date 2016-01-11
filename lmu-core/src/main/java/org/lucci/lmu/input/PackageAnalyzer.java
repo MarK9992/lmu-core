@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.lang.reflect.*;
 import java.util.*;
 
+/**
+ * @author Benjamin Benni, Marc Karassev
+ */
 public class PackageAnalyzer extends Analyzer {
 
 	@Override
@@ -41,16 +44,6 @@ public class PackageAnalyzer extends Analyzer {
 		fillModel(model);
 
 		return model;
-	}
-
-	/*
-	 * public static void main(String[] args) {
-	 * System.out.println(createClassNamed("lucci.Coucou"));
-	 * System.out.println(createClassNamed("Coucou")); }
-	 */
-
-	public String computeEntityName(Class<?> c) {
-		return c.getName().substring(c.getName().lastIndexOf('.') + 1);
 	}
 
 	public String computeEntityNamespace(Class<?> c) {
