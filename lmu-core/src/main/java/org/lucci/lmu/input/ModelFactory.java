@@ -8,7 +8,7 @@ import java.util.Map;
  */
 
 /**
- * @author luc.hogie, Marc Karassev
+ * @author luc.hogie
  */
 public abstract class ModelFactory {
 
