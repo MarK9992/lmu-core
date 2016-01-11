@@ -1,32 +1,20 @@
 package org.lucci.lmu.input;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.lucci.lmu.model.*;
 import org.lucci.lmu.test.DynamicCompiler;
-
 import toools.ClassContainer;
 import toools.ClassName;
 import toools.ClassPath;
 import toools.Clazz;
 import toools.io.FileUtilities;
 import toools.io.file.RegularFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.*;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.*;
 
 /*
  * Created on Oct 11, 2004
@@ -37,14 +25,8 @@ import toools.io.file.RegularFile;
  */
 public class JarFileAnalyser extends ModelFactory
 {
-	private Collection<RegularFile> knownJarFiles = new HashSet<RegularFile>();
 	private Map<Class<?>, Entity> primitiveMap = new HashMap<Class<?>, Entity>();
 	private Map<Entity, Class<?>> entity_class = new HashMap<Entity, Class<?>>();
-
-	public Collection<RegularFile> getJarFiles()
-	{
-		return this.knownJarFiles;
-	}
 
 	@Override
 	public IModel createModel(byte[] data) throws ParseError
@@ -78,11 +60,6 @@ public class JarFileAnalyser extends ModelFactory
 			ClassPath classContainers = new ClassPath();
 			
 			classContainers.add(new ClassContainer(jarFile, classLoader));
-
-			for (RegularFile thisJarFile : this.knownJarFiles)
-			{
-				classContainers.add(new ClassContainer(thisJarFile, classLoader));
-			}
 
 			// take all the classes in the jar files and convert them to LMU
 			// Entities

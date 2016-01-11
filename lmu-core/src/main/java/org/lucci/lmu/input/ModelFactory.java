@@ -1,9 +1,9 @@
 package org.lucci.lmu.input;
 
+import org.lucci.lmu.model.IModel;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.lucci.lmu.model.IModel;
 
 /*
  * Created on Oct 11, 2004
