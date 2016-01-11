@@ -1,7 +1,5 @@
 package org.lucci.lmu.input;
 
-import org.lucci.lmu.model.IModel;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,12 +8,11 @@ import java.util.Map;
  */
 
 /**
- * @author luc.hogie
+ * @author luc.hogie, Marc Karassev
  */
-public abstract class ModelFactory
-{
+public abstract class ModelFactory {
 
-	static private Map<String, ModelFactory> factoryMap = new HashMap<String, ModelFactory>();
+	static private Map<String, Analyzer> factoryMap = new HashMap<>();
 
 	static
 	{
@@ -27,10 +24,8 @@ public abstract class ModelFactory
 
 	}
 
-	public static ModelFactory getModelFactory(String type)
+	public static Analyzer getModelFactory(String type)
 	{
 		return factoryMap.get(type);
 	}
-
-	public abstract IModel createModel(byte[] data) throws ParseError, ModelException;
 }

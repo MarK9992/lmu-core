@@ -1,23 +1,15 @@
 package org.lucci.lmu.input;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.lucci.lmu.model.*;
-
 import toools.collections.Collections;
 import toools.io.file.RegularFile;
 import toools.text.TextUtilities;
 
-public class LmuParser extends ModelFactory {
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+
+public class LmuParser extends Analyzer {
 	private final static LmuParser parser = new LmuParser();
 
 	public static LmuParser getParser() {
@@ -509,7 +501,7 @@ public class LmuParser extends ModelFactory {
 						syntax("File name has not extension, which is required to guess its content type: "
 								+ file.getPath());
 					} else {
-						ModelFactory modelFactory = ModelFactory.getModelFactory(fileExtension.toLowerCase());
+						Analyzer modelFactory = ModelFactory.getModelFactory(fileExtension.toLowerCase());
 
 						if (modelFactory == null) {
 							syntax(file.getPath() + ": dunno what to do with files extension " + fileExtension);
