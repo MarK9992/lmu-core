@@ -30,10 +30,9 @@ public class ModelExporterTest {
     @BeforeClass
     public static void setUp() throws IOException, ParseError {
         URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-        File file = new File(url.getPath());
         DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
 
-        sampleOrgModel = new JarFileAnalyser().createModel(file);
+        sampleOrgModel = new JarFileAnalyser().createModel(url.getPath());
         modelExporter = new ModelExporterImpl();
         for (Path filePath: stream) {
             Files.delete(filePath);

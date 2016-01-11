@@ -25,11 +25,7 @@ public class LmuParser extends ModelBuilder {
 	private Entity currentEntity = null;
 	private String comment = "";
 
-	@Override
-	public IModel createModel(byte[] data) throws ParseError, ModelException {
-		return createModel(new String(data));
-	}
-
+    @Override
 	public IModel createModel(String text) throws ParseError, ModelException {
 		return createModel(Arrays.asList(text.split("\n")));
 	}
@@ -510,7 +506,7 @@ public class LmuParser extends ModelBuilder {
 
 							if (newModel == null) {
 								try {
-									newModel = modelFactory.createModel(file.getContent());
+									newModel = modelFactory.createModel(new String(file.getContent()));
 									model.merge(newModel);
 									modelCache.put(file, newModel);
 								} catch (IOException ex) {

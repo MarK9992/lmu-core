@@ -232,15 +232,4 @@ public abstract class Analyzer extends ModelBuilder {
             }
         }
     }
-
-    public IModel createModel(File file) throws ParseError, IOException {
-        byte[] data = FileUtilities.getFileContent(file);
-
-        try {
-            return createModel(data);
-        } catch (ModelException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

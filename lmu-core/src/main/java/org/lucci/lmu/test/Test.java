@@ -14,9 +14,8 @@ public class Test {
 	public static void main(String... args) throws ParseError, IOException {
 
 		URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-		File file = new File(url.getPath());
 
-		IModel model = new JarFileAnalyser().createModel(file);
+		IModel model = new JarFileAnalyser().createModel(url.getPath());
 		Entity e = Entities.findEntityByName(model, "LmuException");
 
 		System.out.println(e.getName());

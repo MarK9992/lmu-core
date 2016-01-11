@@ -25,9 +25,8 @@ public class JarFileAnalyzerTest {
 	@Test
 	public void highLevelTest() throws IOException, ParseError {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-		File file = new File(url.getPath());
 
-		IModel model = new JarFileAnalyser().createModel(file);
+		IModel model = new JarFileAnalyser().createModel(url.getPath());
 		Entity e = Entities.findEntityByName(model, "LmuException");
 
 		assertEquals("LmuException", e.getName());
@@ -36,9 +35,8 @@ public class JarFileAnalyzerTest {
 	@Test
 	public void endToEndTest() throws IOException, ParseError, WriterException {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-		File file = new File(url.getPath());
 
-		IModel model = new JarFileAnalyser().createModel(file);
+		IModel model = new JarFileAnalyser().createModel(url.getPath());
 
 		DotWriter dotTextFactory = new DotWriter();
 		byte[] dotText = dotTextFactory.writeModel(model);

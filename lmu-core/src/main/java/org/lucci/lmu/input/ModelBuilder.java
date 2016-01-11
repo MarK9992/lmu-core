@@ -9,5 +9,5 @@ public abstract class ModelBuilder {
 
     // Methods
 
-    protected abstract IModel createModel(byte[] data) throws ParseError, ModelException;
+    protected abstract IModel createModel(String item) throws ParseError, ModelException;
 }

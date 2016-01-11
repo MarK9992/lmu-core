@@ -9,10 +9,10 @@ import java.util.*;
 public class PackageAnalyzer extends Analyzer {
 
 	@Override
-	public IModel createModel(byte[] data) throws ParseError {
+	public IModel createModel(String packageName) throws ParseError {
 		IModel model = new Model();
 
-		List<Class<?>> classes = ClassFinder.find("org.lucci.lmu.input");
+		List<Class<?>> classes = ClassFinder.find(packageName);
 
 		fillPrimitiveMap(model);
 		// take all the classes in the jar files and convert them to LMU

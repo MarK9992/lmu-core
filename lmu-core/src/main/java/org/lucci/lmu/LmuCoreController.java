@@ -53,8 +53,7 @@ public class LmuCoreController implements LmuCore {
 	public void analyzeJar(String jarPath, String outputPath) {
         try {
             URL url = new URL("file://" + jarPath);
-            File file = new File(url.getPath());
-            IModel model = new JarFileAnalyser().createModel(file);
+            IModel model = new JarFileAnalyser().createModel(url.getPath());
 
             modelExporter.exportToFile(model, outputPath);
         } catch (Exception e) {
