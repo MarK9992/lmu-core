@@ -9,7 +9,7 @@ import java.util.*;
 public class PackageAnalyzer extends Analyzer {
 
 	@Override
-	public IModel createModel(String packageName) throws ParseError {
+	public IModel createModel(String packageName) {
 		IModel model = new Model();
 
 		List<Class<?>> classes = ClassFinder.find(packageName);

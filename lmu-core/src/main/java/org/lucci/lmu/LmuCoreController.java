@@ -3,6 +3,7 @@ package org.lucci.lmu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.input.JarFileAnalyser;
+import org.lucci.lmu.input.PackageAnalyzer;
 import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
@@ -28,8 +29,9 @@ public class LmuCoreController implements LmuCore {
 
 	@Override
 	public void analyzePackage(String packageName, String outputPath, String outputFormat) {
-		// TODO
-		// modelExporter.exportToFile(model, outputPath);
+		IModel model = new PackageAnalyzer().createModel(packageName);
+
+		modelExporter.exportToFile(model, outputPath, outputFormat);
 	}
 
 	@Override
