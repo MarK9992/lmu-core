@@ -62,6 +62,7 @@ public class ModelExporterTest {
         modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.lmu");
         modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -72,6 +73,7 @@ public class ModelExporterTest {
         modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.dot");
         modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -82,6 +84,7 @@ public class ModelExporterTest {
         modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.java");
         modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -92,6 +95,7 @@ public class ModelExporterTest {
         modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.pdf");
         modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -102,6 +106,7 @@ public class ModelExporterTest {
         modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.png");
         modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -112,6 +117,7 @@ public class ModelExporterTest {
         modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.ps");
         modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -122,6 +128,7 @@ public class ModelExporterTest {
         modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.fig");
         modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -132,6 +139,7 @@ public class ModelExporterTest {
         modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.svg");
         modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files content by yourself now
     }
 }
