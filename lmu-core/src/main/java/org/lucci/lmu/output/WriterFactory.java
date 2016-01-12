@@ -1,7 +1,5 @@
 package org.lucci.lmu.output;
 
-import org.lucci.lmu.model.IModel;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,10 +12,8 @@ import java.util.Map;
  */
 public abstract class WriterFactory
 {
-	public abstract byte[] writeModel(IModel diagram)
-		throws WriterException;
     
-	static Map<String, WriterFactory> factoryMap = new HashMap<String, WriterFactory>();
+	static Map<String, Writer> factoryMap = new HashMap<String, Writer>();
 	
 	static
 	{
@@ -31,9 +27,9 @@ public abstract class WriterFactory
 		factoryMap.put("svg", new GraphVizBasedViewFactory("svg"));
 	}
 
-	public static WriterFactory getTextFactory(String type)
+	public static Writer getTextFactory(String type)
 	{
-	    WriterFactory f = factoryMap.get(type);
+	    Writer f = factoryMap.get(type);
 	    
 	    if (f == null)
 	    {

@@ -1,9 +1,9 @@
 package org.lucci.lmu.output;
 
+import org.lucci.lmu.model.*;
+
 import java.util.Collection;
 import java.util.Iterator;
-
-import org.lucci.lmu.model.*;
 
 
 
@@ -14,7 +14,7 @@ import org.lucci.lmu.model.*;
 /**
  * @author luc.hogie
  */
-public class JavaSourceWriter extends WriterFactory
+public class JavaSourceWriter extends Writer
 {	
 	
 	/* (non-Javadoc)
