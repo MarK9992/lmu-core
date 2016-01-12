@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.lucci.lmu.input.ParseError;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Marc Karassev
@@ -30,6 +32,11 @@ public class LmuCoreTest {
 
     @BeforeClass
     public static void setUp() throws IOException, ParseError {
+        File file = new File(LmuCore.DEFAULT_OUTPUT_PATH);
+
+        file.mkdirs();
+        assertTrue(file.exists());
+
         DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
 
         for (Path filePath: stream) {
