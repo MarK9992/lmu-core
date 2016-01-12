@@ -1,15 +1,11 @@
 package org.lucci.lmu.output;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.model.IModel;
-import org.lucci.lmu.model.Model;
-
-import toools.io.FileUtilities;
 import toools.io.file.RegularFile;
+
+import java.io.IOException;
 
 /**
  * 
@@ -27,15 +23,14 @@ public class ModelExporterImpl implements ModelExporter {
 	// Methods
 
 	@Override
-	public void exportToFile(IModel model, String filePath) {
-		RegularFile out = new RegularFile(filePath);
-		String fileExtension = FileUtilities.getFileNameExtension(filePath);
-		AbstractWriter factory = AbstractWriter.getTextFactory(fileExtension);
+	public void exportToFile(IModel model, String filePath, String format) {
+		RegularFile out = new RegularFile(filePath + "." + format);
+		AbstractWriter factory = AbstractWriter.getTextFactory(format);
 
         LOGGER.debug(filePath);
-        LOGGER.debug(fileExtension);
+        LOGGER.debug(format);
 		if (factory == null) {
-			LOGGER.error("Fatal error: Do not know how to generate '" + fileExtension + "' code");
+			LOGGER.error("Fatal error: Do not know how to generate '" + format + "' code");
 		}
 		else {
 			try {

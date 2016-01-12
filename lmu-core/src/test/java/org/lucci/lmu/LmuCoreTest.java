@@ -41,58 +41,56 @@ public class LmuCoreTest {
 
     @Test
     public void analyzeJarToPdfTest() throws FileNotFoundException{
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath());
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.pdf");
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.pdf");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", "pdf");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.pdf");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToLmuTest() throws FileNotFoundException{
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", "lmu");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToDotTest() throws FileNotFoundException{
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", "dot");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToJavaTest() throws FileNotFoundException{
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", "java");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToPngTest() throws FileNotFoundException{
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", "png");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToPsTest() throws FileNotFoundException{
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", "ps");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToSvgTest() throws FileNotFoundException{
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", "svg");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
         // check the files contents by yourself now
     }
 
     @Test
     public void analyzeJarToFigTest() throws FileNotFoundException{
-        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
+        CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", "fig");
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
         // check the files contents by yourself now
     }

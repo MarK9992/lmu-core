@@ -13,11 +13,7 @@ public interface LmuCore {
 	
 	// Methods
 	
-	void analyzePackage(String packageName);
-	
-	void analyzePackage(String packageName, String outputPath);
+	void analyzePackage(String packageName, String outputPath, String outputFormat);
 
-	void analyzeJar(String jarPath);
-
-    void analyzeJar(String jarPath, String outputPath);
+    void analyzeJar(String jarPath, String outputPath, String outputFormat);
 }
