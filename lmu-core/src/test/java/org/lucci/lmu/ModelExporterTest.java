@@ -8,6 +8,7 @@ import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,6 +17,9 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Marc Karassev
@@ -32,6 +36,10 @@ public class ModelExporterTest {
     @BeforeClass
     public static void setUp() throws IOException, ParseError {
         URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+
+        assertNotNull(url);
+        assertTrue(new File(LmuCore.DEFAULT_OUTPUT_PATH).mkdirs());
+        
         DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
 
         sampleOrgModel = new JarFileAnalyser().createModel(url.getPath());
