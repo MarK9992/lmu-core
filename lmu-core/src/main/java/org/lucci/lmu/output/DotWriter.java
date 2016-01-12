@@ -1,10 +1,10 @@
 package org.lucci.lmu.output;
 
+import org.lucci.lmu.model.*;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import org.lucci.lmu.model.*;
 
 /*
  * Created on Oct 2, 2004
