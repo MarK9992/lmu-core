@@ -8,8 +8,6 @@ import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
 
-import java.net.URL;
-
 /**
  * @author Benjamin Benni, Marc Karassev
  * 
@@ -37,8 +35,7 @@ public class LmuCoreController implements LmuCore {
 	@Override
 	public void analyzeJar(String jarPath, String outputPath, String outputFormat) {
         try {
-            URL url = new URL("file://" + jarPath);
-            IModel model = new JarFileAnalyser().createModel(url.getPath());
+            IModel model = new JarFileAnalyser().createModel(jarPath);
 
             modelExporter.exportToFile(model, outputPath, outputFormat);
         } catch (Exception e) {
