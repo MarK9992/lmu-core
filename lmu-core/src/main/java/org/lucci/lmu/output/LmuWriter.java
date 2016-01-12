@@ -9,7 +9,7 @@ import org.lucci.lmu.model.*;
 /**
  * @author luc.hogie
  */
-public class LmuWriter extends AbstractWriter
+public class LmuWriter extends WriterFactory
 {
 	public byte[] writeModel(IModel model)
 	{

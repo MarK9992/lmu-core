@@ -14,7 +14,7 @@ import org.lucci.lmu.model.*;
 /**
  * @author luc.hogie
  */
-public class JavaSourceWriter extends AbstractWriter
+public class JavaSourceWriter extends WriterFactory
 {	
 	
 	/* (non-Javadoc)

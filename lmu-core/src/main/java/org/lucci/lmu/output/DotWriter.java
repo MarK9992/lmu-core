@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author luc.hogie
  */
-public class DotWriter extends AbstractWriter
+public class DotWriter extends WriterFactory
 {
     private String fontName = "Times";
 

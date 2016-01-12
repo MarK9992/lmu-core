@@ -12,12 +12,12 @@ import java.util.Map;
 /**
  * @author luc.hogie
  */
-public abstract class AbstractWriter
+public abstract class WriterFactory
 {
 	public abstract byte[] writeModel(IModel diagram)
 		throws WriterException;
     
-	static Map<String, AbstractWriter> factoryMap = new HashMap<String, AbstractWriter>();
+	static Map<String, WriterFactory> factoryMap = new HashMap<String, WriterFactory>();
 	
 	static
 	{
@@ -31,9 +31,9 @@ public abstract class AbstractWriter
 		factoryMap.put("svg", new GraphVizBasedViewFactory("svg"));
 	}
 
-	public static AbstractWriter getTextFactory(String type)
+	public static WriterFactory getTextFactory(String type)
 	{
-	    AbstractWriter f = factoryMap.get(type);
+	    WriterFactory f = factoryMap.get(type);
 	    
 	    if (f == null)
 	    {

@@ -25,9 +25,9 @@ public class JarFileAnalyzerTest {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
 
 		IModel model = new JarFileAnalyser().createModel(url.getPath());
-		Entity e = Entities.findEntityByName(model, "LmuException");
+		Entity e = Entities.findEntityByName(model, "ModelExporterImpl");
 
-		assertEquals("LmuException", e.getName());
+		assertEquals("ModelExporterImpl", e.getName());
 	}
 
 	@Test

@@ -25,7 +25,7 @@ public class ModelExporterImpl implements ModelExporter {
 	@Override
 	public void exportToFile(IModel model, String filePath, String format) {
 		RegularFile out = new RegularFile(filePath + "." + format);
-		AbstractWriter factory = AbstractWriter.getTextFactory(format);
+		WriterFactory factory = WriterFactory.getTextFactory(format);
 
         LOGGER.debug(filePath);
         LOGGER.debug(format);
