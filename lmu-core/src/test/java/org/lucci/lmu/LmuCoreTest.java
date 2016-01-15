@@ -6,13 +6,13 @@ import org.lucci.lmu.input.ParseError;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -26,7 +26,7 @@ public class LmuCoreTest {
 
     private static final LmuCore CONTROLLER = new LmuCoreController();
     private static final URL SAMPLE_ORG_URL = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
-    private static final String INPUT_PACKAGE = "org.lucci.lmu.input";
+    private static final ArrayList<String> PATHS = new ArrayList<>();
 
     // Set-ups and tear-downs
 
@@ -43,95 +43,97 @@ public class LmuCoreTest {
             Files.delete(filePath);
         }
         assertNotNull(SAMPLE_ORG_URL);
+        PATHS.add("target/classes/org/lucci/lmu/LmuCore.class");
+        PATHS.add("target/classes/org/lucci/lmu/input");
     }
 
     // Tests
 
     @Test
-    public void analyzeJarToPdfTest() throws FileNotFoundException {
+    public void analyzeJarToPdfTest() throws IOException {
         final String FORMAT = "pdf";
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.pdf");
-//        CONTROLLER.analyzePaths(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-//        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        CONTROLLER.analyzePaths(PATHS, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
 
     @Test
-    public void analyzeJarToLmuTest() throws FileNotFoundException {
+    public void analyzeJarToLmuTest() throws IOException {
         final String FORMAT = "lmu";
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
-//        CONTROLLER.analyzePaths(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-//        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        CONTROLLER.analyzePaths(PATHS, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
 
     @Test
-    public void analyzeJarToDotTest() throws FileNotFoundException {
+    public void analyzeJarToDotTest() throws IOException {
         final String FORMAT = "dot";
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
-//        CONTROLLER.analyzePaths(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-//        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        CONTROLLER.analyzePaths(PATHS, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
 
     @Test
-    public void analyzeJarToJavaTest() throws FileNotFoundException {
+    public void analyzeJarToJavaTest() throws IOException {
         final String FORMAT = "java";
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
-//        CONTROLLER.analyzePaths(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-//        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        CONTROLLER.analyzePaths(PATHS, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
 
     @Test
-    public void analyzeJarToPngTest() throws FileNotFoundException {
+    public void analyzeJarToPngTest() throws IOException {
         final String FORMAT = "png";
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
-//        CONTROLLER.analyzePaths(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-//        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        CONTROLLER.analyzePaths(PATHS, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
 
     @Test
-    public void analyzeJarToPsTest() throws FileNotFoundException {
+    public void analyzeJarToPsTest() throws IOException {
         final String FORMAT = "ps";
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
-//        CONTROLLER.analyzePaths(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-//        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        CONTROLLER.analyzePaths(PATHS, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
 
     @Test
-    public void analyzeJarToSvgTest() throws FileNotFoundException {
+    public void analyzeJarToSvgTest() throws IOException {
         final String FORMAT = "svg";
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
-//        CONTROLLER.analyzePaths(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-//        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        CONTROLLER.analyzePaths(PATHS, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
 
     @Test
-    public void analyzeJarToFigTest() throws FileNotFoundException {
+    public void analyzeJarToFigTest() throws IOException {
         final String FORMAT = "fig";
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
-//        CONTROLLER.analyzePaths(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-//        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        CONTROLLER.analyzePaths(PATHS, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
 }

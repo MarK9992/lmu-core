@@ -26,9 +26,7 @@ public class JarFileAnalyser extends Analyzer {
 
         fillPrimitiveMap(model);
         try {
-            URL url = new URL("file://" + jarPath);
-            File file = new File(url.getPath());
-
+            File file = new File(jarPath);
             RegularFile jarFile = RegularFile.createTempFile("lmu-", ".jar");
             jarFile.setContent(FileUtilities.getFileContent(file));
 
@@ -60,8 +58,8 @@ public class JarFileAnalyser extends Analyzer {
             fillModel(model);
             jarFile.delete();
         }
-        catch (IOException ex)
-        {
+        catch (IOException ex) {
+            ex.printStackTrace();
             throw new IllegalStateException();
         }
 
