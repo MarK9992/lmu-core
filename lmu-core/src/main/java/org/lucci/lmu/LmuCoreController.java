@@ -3,13 +3,13 @@ package org.lucci.lmu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.input.JarFileAnalyser;
-import org.lucci.lmu.input.PackageAnalyzer;
+import org.lucci.lmu.input.JarFromPathsCreator;
 import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.jar.JarFile;
 
 /**
  * @author Benjamin Benni, Marc Karassev
@@ -29,12 +29,12 @@ public class LmuCoreController implements LmuCore {
 	// Methods
 
 	@Override
-	public void analyzePaths(List<String> paths, String outputPath, String outputFormat) {
-		JarFile jarFile = null; // TODO
-        String jarPath = ""; // TODO
+	public void analyzePaths(List<String> paths, String outputPath, String outputFormat) throws IOException {
+        String jarPath = new JarFromPathsCreator().createJarFromPaths(paths);
 
         analyzeJar(jarPath, outputPath, outputFormat);
-	}
+        // TODO delete temp jar
+    }
 
 	@Override
 	public void analyzeJar(String jarPath, String outputPath, String outputFormat) {

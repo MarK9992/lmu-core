@@ -1,5 +1,6 @@
 package org.lucci.lmu;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface LmuCore {
 	
 	// Methods
 	
-	void analyzePaths(List<String> paths, String outputPath, String outputFormat);
+	void analyzePaths(List<String> paths, String outputPath, String outputFormat) throws IOException;
 
     void analyzeJar(String jarPath, String outputPath, String outputFormat);
 }
