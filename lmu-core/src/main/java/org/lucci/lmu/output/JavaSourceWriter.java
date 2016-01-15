@@ -14,7 +14,7 @@ import java.util.Iterator;
 /**
  * @author luc.hogie
  */
-public class JavaSourceWriter extends Writer
+public class JavaSourceWriter implements Writer
 {	
 	
 	/* (non-Javadoc)
