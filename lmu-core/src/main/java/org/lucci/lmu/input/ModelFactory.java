@@ -14,13 +14,8 @@ public abstract class ModelFactory {
 
 	static private Map<String, ModelBuilder> factoryMap = new HashMap<>();
 
-	static
-	{
-		factoryMap.put(null, LmuParser.getParser());
-		factoryMap.put("lmu", LmuParser.getParser());
+	static {
 		factoryMap.put("jar", new JarFileAnalyser());
-		factoryMap.put("classes", null);    // TODO: 23/12/15 implements ClassesAnalyzer
-
 	}
 
 	public static ModelBuilder getModelFactory(String type)

@@ -5,7 +5,7 @@ import org.lucci.lmu.model.IModel;
 /**
  * @author Marc Karassev
  */
-public abstract class Writer {
+public interface Writer {
 
     public abstract byte[] writeModel(IModel diagram) throws WriterException;
 }

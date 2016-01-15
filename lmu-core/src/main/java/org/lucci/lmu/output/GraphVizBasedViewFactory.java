@@ -13,7 +13,7 @@ import toools.extern.Proces;
 /**
  * @author luc.hogie, Marc Karassev
  */
-public class GraphVizBasedViewFactory extends Writer {
+public class GraphVizBasedViewFactory implements Writer {
 
     // Constants
 

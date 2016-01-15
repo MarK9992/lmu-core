@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * @author Marc Karassev
  */
-public abstract class Analyzer extends ModelBuilder {
+public abstract class Analyzer implements ModelBuilder {
 
     // Constants
 
