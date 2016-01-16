@@ -4,11 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
-import java.util.List;
-import java.util.jar.Attributes;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
-import java.util.jar.Manifest;
 
 /**
  * @author Marc Karassev
@@ -22,50 +20,53 @@ public class JarFromPathsCreator {
 
     // Methods
 
-    public String createJarFromPaths(List<String> paths) throws IOException {
+    public String createJarFromPaths(Map<String, String> pathsAndPackages) throws IOException {
         JarOutputStream outputStream = new JarOutputStream(new FileOutputStream(TEMP_FILE_NAME));
         File reading;
 
-        for (String path: paths) {
-            reading = new File(path);
-            addFileToJar(outputStream, reading);
+        for (Map.Entry<String, String> path: pathsAndPackages.entrySet()) {
+            reading = new File(path.getKey());
+            addFileToJar(outputStream, reading, path.getValue().replace(".", "/") + "/");
         }
         outputStream.close();
         return TEMP_FILE_NAME;
     }
 
-    private void addFileToJar(JarOutputStream outputStream, File file) throws IOException {
-        JarEntry entry;
-
+    private void addFileToJar(JarOutputStream outputStream, File file, String packagePath) throws IOException {
+        LOGGER.debug(file.getPath() + "\t" + packagePath);
         if (file.getName().endsWith(".class")) {
-            BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
-            byte[] buffer = new byte[1024];
-            int count;
-
-            entry = new JarEntry(file.getPath().replace("\\", "/"));
-            entry.setTime(file.lastModified());
-            outputStream.putNextEntry(entry);
-            count = in.read(buffer);
-            while (count >= 0) {
-                outputStream.write(buffer, 0, count);
-                count = in.read(buffer);
-            }
-            outputStream.closeEntry();
-            in.close();
+            writeFile(outputStream, file, packagePath);
         }
         else if (file.isDirectory()) {
-            String name = file.getPath().replace("\\", "/");
+            String directoryPath = file.getPath().replace("\\", "/") + "/";
 
-            if (!name.endsWith("/")) {
-                name += "/";
+            if (directoryPath.endsWith(packagePath)) {
+                for (File child: file.listFiles()) {
+                    addFileToJar(outputStream, child, packagePath);
+                }
             }
-            entry = new JarEntry(name);
-            entry.setTime(file.lastModified());
-            outputStream.putNextEntry(entry);
-            outputStream.closeEntry();
-            for (File child: file.listFiles()) {
-                addFileToJar(outputStream, child);
+            else {
+                for (File child: file.listFiles()) {
+                    addFileToJar(outputStream, child, packagePath + file.getName() + "/");
+                }
             }
         }
+    }
+
+    private void writeFile(JarOutputStream outputStream, File file, String packagePath) throws IOException {
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
+        byte[] buffer = new byte[1024];
+        int count;
+        JarEntry entry = new JarEntry(packagePath + file.getName());
+
+        entry.setTime(file.lastModified());
+        outputStream.putNextEntry(entry);
+        count = in.read(buffer);
+        while (count >= 0) {
+            outputStream.write(buffer, 0, count);
+            count = in.read(buffer);
+        }
+        outputStream.closeEntry();
+        in.close();
     }
 }

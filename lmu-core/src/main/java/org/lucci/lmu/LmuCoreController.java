@@ -8,11 +8,10 @@ import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author Benjamin Benni, Marc Karassev
@@ -32,8 +31,8 @@ public class LmuCoreController implements LmuCore {
 	// Methods
 
 	@Override
-	public void analyzePaths(List<String> paths, String outputPath, String outputFormat) throws IOException {
-        String jarPath = new JarFromPathsCreator().createJarFromPaths(paths);
+	public void analyzePaths(Map<String, String> pathsAndPackages, String outputPath, String outputFormat) throws IOException {
+        String jarPath = new JarFromPathsCreator().createJarFromPaths(pathsAndPackages);
 
         analyzeJar(jarPath, outputPath, outputFormat);
         Files.delete(Paths.get(jarPath));

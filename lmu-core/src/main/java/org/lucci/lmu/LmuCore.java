@@ -1,7 +1,7 @@
 package org.lucci.lmu;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author Benjamin Benni, Marc Karassev
@@ -16,7 +16,7 @@ public interface LmuCore {
 	
 	// Methods
 	
-	void analyzePaths(List<String> paths, String outputPath, String outputFormat) throws IOException;
+	void analyzePaths(Map<String, String> pathsAndPackages, String outputPath, String outputFormat) throws IOException;
 
     void analyzeJar(String jarPath, String outputPath, String outputFormat);
 }

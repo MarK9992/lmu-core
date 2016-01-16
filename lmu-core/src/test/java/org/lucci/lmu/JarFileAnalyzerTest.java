@@ -27,7 +27,7 @@ public class JarFileAnalyzerTest {
 		IModel model = new JarFileAnalyser().createModel(url.getPath());
 		Entity e = Entities.findEntityByName(model, "ModelExporterImpl");
 
-		assertEquals("ModelExporterImpl", e.getName());
+		assertNotNull(e);
 	}
 
 	@Test
