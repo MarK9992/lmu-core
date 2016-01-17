@@ -20,8 +20,8 @@ public class JarFromPathsCreator {
 
     // Methods
 
-    public String createJarFromPaths(Map<String, String> pathsAndPackages) throws IOException {
-        JarOutputStream outputStream = new JarOutputStream(new FileOutputStream(TEMP_FILE_NAME));
+    public String createJarFromPaths(Map<String, String> pathsAndPackages, String tmpPath) throws IOException {
+        JarOutputStream outputStream = new JarOutputStream(new FileOutputStream(tmpPath + TEMP_FILE_NAME));
         File reading;
 
         for (Map.Entry<String, String> path: pathsAndPackages.entrySet()) {
@@ -29,7 +29,7 @@ public class JarFromPathsCreator {
             addFileToJar(outputStream, reading, path.getValue().replace(".", "/") + "/");
         }
         outputStream.close();
-        return TEMP_FILE_NAME;
+        return tmpPath + TEMP_FILE_NAME;
     }
 
     private void addFileToJar(JarOutputStream outputStream, File file, String packagePath) throws IOException {

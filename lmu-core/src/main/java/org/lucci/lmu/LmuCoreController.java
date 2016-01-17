@@ -31,8 +31,8 @@ public class LmuCoreController implements LmuCore {
 	// Methods
 
 	@Override
-	public void analyzePaths(Map<String, String> pathsAndPackages, String outputPath, String outputFormat) throws IOException {
-        String jarPath = new JarFromPathsCreator().createJarFromPaths(pathsAndPackages);
+	public void analyzePaths(Map<String, String> pathsAndPackages, String outputPath, String outputFormat, String tmpPath) throws IOException {
+        String jarPath = new JarFromPathsCreator().createJarFromPaths(pathsAndPackages, tmpPath);
 
         analyzeJar(jarPath, outputPath, outputFormat);
         Files.delete(Paths.get(jarPath));

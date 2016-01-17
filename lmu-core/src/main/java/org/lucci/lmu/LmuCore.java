@@ -16,7 +16,7 @@ public interface LmuCore {
 	
 	// Methods
 	
-	void analyzePaths(Map<String, String> pathsAndPackages, String outputPath, String outputFormat) throws IOException;
+	void analyzePaths(Map<String, String> pathsAndPackages, String outputPath, String outputFormat, String tmpPath) throws IOException;
 
     void analyzeJar(String jarPath, String outputPath, String outputFormat);
 }

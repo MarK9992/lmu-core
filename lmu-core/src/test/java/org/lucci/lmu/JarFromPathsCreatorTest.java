@@ -26,21 +26,21 @@ public class JarFromPathsCreatorTest {
     @Test
     public void emptyJarTest() throws IOException {
         pathsAndPackages.put("target/generated-sources/annotations", "");
-        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages));
+        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages, ""));
         // check the files contents by yourself now
     }
 
     @Test
     public void noDirectoryJarTest() throws IOException {
         pathsAndPackages.put("target/classes/org/lucci/lmu/input", "org.lucci.lmu.input");
-        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages));
+        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages, ""));
         // check the files contents by yourself now
     }
 
     @Test
     public void jarWithDirectoriesTest() throws IOException {
         pathsAndPackages.put("target/classes/org", "org");
-        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages));
+        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages, ""));
         // check the files contents by yourself now
     }
 
@@ -48,7 +48,7 @@ public class JarFromPathsCreatorTest {
     public void createJarFromSeveralPaths() throws IOException {
         pathsAndPackages.put("target/classes/org/lucci/lmu/input", "org.lucci.lmu.input");
         pathsAndPackages.put("target/classes/org/lucci/lmu/output", "org.lucci.lmu.output");
-        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages));
+        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages, ""));
         // check the files contents by yourself now
     }
 
@@ -56,7 +56,7 @@ public class JarFromPathsCreatorTest {
     public void createJarFromClasses() throws IOException {
         pathsAndPackages.put("target/classes/org/lucci/lmu/LmuCore.class", "org.lucci.lmu");
         pathsAndPackages.put("target/classes/org/lucci/lmu/input/ModelFactory.class", "org.lucci.lmu.input");
-        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages));
+        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages, ""));
         // check the files contents by yourself now
     }
 
@@ -65,7 +65,7 @@ public class JarFromPathsCreatorTest {
         pathsAndPackages.put("target/classes/org/lucci/lmu/LmuCore.class", "org.lucci.lmu");
         pathsAndPackages.put("target/classes/org/lucci/lmu/input", "org.lucci.lmu.input");
         pathsAndPackages.put("target/classes/org/lucci/lmu/output", "org.lucci.lmu.output");
-        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages));
+        new FileInputStream(jarCreator.createJarFromPaths(pathsAndPackages, ""));
         // check the files contents by yourself now
     }
 }
