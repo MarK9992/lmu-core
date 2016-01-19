@@ -1,4 +1,4 @@
-package org.lucci.lmu.input;
+package org.lucci.lmu;
 
 import java.io.File;
 import java.io.IOException;
