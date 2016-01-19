@@ -7,79 +7,60 @@ import org.lucci.lmu.model.*;
  */
 
 /**
- * @author luc.hogie
+ * This class produces a LMU representation of the given model
+ *
+ * @author luc.hogie, Benni Benjamin
  */
-public class LmuWriter implements Writer
-{
-	public byte[] writeModel(IModel model)
-	{
+public class LmuWriter implements Writer {
+	public byte[] writeModel(IModel model) {
 		StringBuilder text = new StringBuilder();
 
-		for (Entity entity : ModelElement.findVisibleModelElements(model.getEntities()))
-		{
-			if (entity.getComment() != null && !entity.getComment().trim().isEmpty())
-			{
+		for (Entity entity : ModelElement.findVisibleModelElements(model.getEntities())) {
+			if (entity.getComment() != null && !entity.getComment().trim().isEmpty()) {
 				text.append("\n# " + entity.getComment());
 			}
 
 			text.append("\nentity " + entity.getName());
 
-			for (Attribute attribute : entity.getAttributes())
-			{
+			for (Attribute attribute : entity.getAttributes()) {
 				text.append("\n\tfeatures " + getLMUVisibilityFor(attribute.getVisibility()) + " attribute " + attribute.getName() + " of type " + attribute.getType().getName());
 			}
 
-			for (String stereoType : entity.getStereoTypeList())
-			{
+			for (String stereoType : entity.getStereoTypeList()) {
 				text.append("\n\nstereotype " + stereoType);
 			}
 
-			for (Operation operation : entity.getOperations())
-			{
+			for (Operation operation : entity.getOperations()) {
 				text.append("\n\tfeatures " + getLMUVisibilityFor(operation.getVisibility()) + " operation " + operation.getName() + " of type " + operation.getType().getName());
 
-				if (!operation.getParameterList().isEmpty())
-				{
+				if (!operation.getParameterList().isEmpty()) {
 					text.append(" expecting");
 
-					for (Entity parm : operation.getParameterList())
-					{
+					for (Entity parm : operation.getParameterList()) {
 						text.append(" " + parm.getName());
 					}
 				}
 			}
 
-			for (Relation rel : Relations.findRelationsDeclaredBy(entity, model))
-			{
-				if (rel instanceof InheritanceRelation)
-				{
+			for (Relation rel : Relations.findRelationsDeclaredBy(entity, model)) {
+				if (rel instanceof InheritanceRelation) {
 					InheritanceRelation irel = (InheritanceRelation) rel;
 					text.append("\n\textends " + irel.getSuperEntity().getName());
-				}
-				else if (rel instanceof AssociationRelation)
-				{
+				} else if (rel instanceof AssociationRelation) {
 					AssociationRelation arel = (AssociationRelation) rel;
 					text.append("\n\thas " + arel.getCardinality() + " " + arel.getContainedEntity().getName() + " by ");
 
-					if (arel.getType() == AssociationRelation.TYPE.AGGREGATION)
-					{
+					if (arel.getType() == AssociationRelation.TYPE.AGGREGATION) {
 						text.append("aggregation");
-					}
-					else if (arel.getType() == AssociationRelation.TYPE.COMPOSITION)
-					{
+					} else if (arel.getType() == AssociationRelation.TYPE.COMPOSITION) {
 						text.append("composition");
-					}
-					else if (arel.getType() == AssociationRelation.TYPE.ASSOCIATION)
-					{
+					} else if (arel.getType() == AssociationRelation.TYPE.ASSOCIATION) {
 						text.append("association");
-					}
-					else
-					{
+					} else {
 						throw new IllegalStateException();
 					}
 
-					if (arel.getLabel() != null)
-					{
+					if (arel.getLabel() != null) {
 						text.append(" " + arel.getLabel());
 					}
 
@@ -92,22 +73,14 @@ public class LmuWriter implements Writer
 		return text.toString().getBytes();
 	}
 
-	private String getLMUVisibilityFor(Visibility visibility)
-	{
-		if (visibility == Visibility.PRIVATE)
-		{
+	private String getLMUVisibilityFor(Visibility visibility) {
+		if (visibility == Visibility.PRIVATE) {
 			return "private";
-		}
-		else if (visibility == Visibility.PROTECTED)
-		{
+		} else if (visibility == Visibility.PROTECTED) {
 			return "protected";
-		}
-		else if (visibility == Visibility.PUBLIC)
-		{
+		} else if (visibility == Visibility.PUBLIC) {
 			return "public";
-		}
-		else
-		{
+		} else {
 			throw new IllegalArgumentException("unknown visibilty " + visibility);
 		}
 	}

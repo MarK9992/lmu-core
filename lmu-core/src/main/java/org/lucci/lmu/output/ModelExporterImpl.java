@@ -8,41 +8,36 @@ import toools.io.file.RegularFile;
 import java.io.IOException;
 
 /**
- * 
  * @author Marc Karassev
- * 
- * Implementation of the {@link ModelExporter} interface.
- *
+ *         <p>
+ *         Implementation of the {@link ModelExporter} interface.
  */
 public class ModelExporterImpl implements ModelExporter {
-	
+
 	// Constants
-	
+
 	private final static Logger LOGGER = LogManager.getLogger();
-	
+
 	// Methods
 
 	@Override
 	public void exportToFile(IModel model, String filePath, String format) {
 		RegularFile out = new RegularFile(filePath + "." + format);
-		Writer factory = WriterFactory.getTextFactory(format);
+		Writer writer = WriterFactory.getTextFactory(format);
 
-        LOGGER.debug(filePath);
-        LOGGER.debug(format);
-		if (factory == null) {
+		LOGGER.debug(filePath);
+		LOGGER.debug(format);
+		if (writer == null) {
 			LOGGER.error("Fatal error: Do not know how to generate '" + format + "' code");
-		}
-		else {
+		} else {
 			try {
-				byte[] outputBytes = factory.writeModel(model);
-				
+				byte[] outputBytes = writer.writeModel(model);
+
 				LOGGER.info("Writing file " + filePath);
 				out.setContent(outputBytes);
-			}
-			catch (WriterException ex) {
+			} catch (WriterException ex) {
 				LOGGER.error(ex.getMessage());
-			}
-			catch (IOException ex) {
+			} catch (IOException ex) {
 				LOGGER.error("I/O error while writing file " + filePath);
 			}
 		}

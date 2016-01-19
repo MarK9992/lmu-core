@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * @author Benjamin Benni, Marc Karassev
  * 
- * This class is an implementation of the app's API.
+ * This class is an implementation of the LmuCore API.
  */
 public class LmuCoreController implements LmuCore {
 
@@ -42,7 +42,6 @@ public class LmuCoreController implements LmuCore {
 	public void analyzeJar(String jarPath, String outputPath, String outputFormat) {
         try {
             IModel model = new JarFileAnalyser().createModel(jarPath);
-
             modelExporter.exportToFile(model, outputPath, outputFormat);
         } catch (Exception e) {
             e.printStackTrace();

@@ -14,86 +14,65 @@ import java.util.Iterator;
 /**
  * @author luc.hogie
  */
-public class JavaSourceWriter implements Writer
-{	
-	
+public class JavaSourceWriter implements Writer {
+
 	/* (non-Javadoc)
 	 * @see org.lucci.lmu.ViewFactory#createViewData(org.lucci.lmu.model.ClassDiagram)
 	 */
 	@Override
-	public byte[] writeModel(IModel model) throws WriterException
-	{
+	public byte[] writeModel(IModel model) throws WriterException {
 		String source = "";
 		Collection<Entity> entities = ModelElement.findVisibleModelElements(model.getEntities());
-//		Collections.sort(entities, new Comparator<Entity>()
-//				{
-//					public int compare(Entity e1, Entity e2)
-//					{
-//						return e1.getName().compareTo(e2.getName());
-//					}
-//				});
 
-		for (Entity entity : entities)
-		{
+		for (Entity entity : entities) {
 			source += getJavaSource(entity) + "\n\n";
 		}
-		
+
 		return source.getBytes();
 	}
 
 	public String getJavaSource(Entity entity)
-		throws WriterException
-	{
+			throws WriterException {
 		String source = "";
-		
+
 		source += "\nclass " + entity.getName() + "\n{";
 		Iterator attributeIterator = entity.getAttributes().iterator();
-		
-		while (attributeIterator.hasNext())
-		{
+
+		while (attributeIterator.hasNext()) {
 			Attribute attribute = (Attribute) attributeIterator.next();
-			
-			if (attribute.getType() == null)
-			{
+
+			if (attribute.getType() == null) {
 				throw new WriterException("type for attribute " + entity.getName() + "#" + attribute.getName() + " is undefined");
-			}
-			else
-			{
+			} else {
 				source += "\n\t" + getJavaVisibility(attribute.getVisibility())
-					+ " " + getJavaType(attribute.getType().getName())
-					+ " " + attribute.getName() + ";";
+						+ " " + getJavaType(attribute.getType().getName())
+						+ " " + attribute.getName() + ";";
 			}
 		}
 
 		Iterator operationIterator = entity.getOperations().iterator();
-		
-		while (operationIterator.hasNext())
-		{
+
+		while (operationIterator.hasNext()) {
 			Operation operation = (Operation) operationIterator.next();
-			
-			if (operation.getType() == null)
-			{
+
+			if (operation.getType() == null) {
 				throw new WriterException("type for operation " + entity.getName() + "#" + operation.getName() + " is undefined");
-			}
-			else
-			{
+			} else {
 				source += "\n\t " + getJavaVisibility(operation.getVisibility())
-					+ " " + getJavaType(operation.getType().getName()) + " "
-					+ operation.getName() + "(";
-			
+						+ " " + getJavaType(operation.getType().getName()) + " "
+						+ operation.getName() + "(";
+
 				Iterator<Entity> parameterIterator = operation.getParameterList().iterator();
-				
-				while (parameterIterator.hasNext())
-				{
+
+				while (parameterIterator.hasNext()) {
 					Entity parm = parameterIterator.next();
 					source += parm.getName();
-					
-					if (parameterIterator.hasNext())
-					{
+
+					if (parameterIterator.hasNext()) {
 						source += ", ";
 					}
-				}				
-				
+				}
+
 				source = ");";
 			}
 		}
@@ -101,48 +80,30 @@ public class JavaSourceWriter implements Writer
 		source += "\n}";
 		return source;
 	}
-	
-	private String getJavaVisibility(Visibility v)
-	{
-		if (v == Visibility.PUBLIC)
-		{
+
+	private String getJavaVisibility(Visibility v) {
+		if (v == Visibility.PUBLIC) {
 			return "public";
-		}
-		else if (v == Visibility.PROTECTED)
-		{
+		} else if (v == Visibility.PROTECTED) {
 			return "protected";
-		}
-		else if (v == Visibility.PRIVATE)
-		{
+		} else if (v == Visibility.PRIVATE) {
 			return "private";
-		}
-		else
-		{
+		} else {
 			throw new IllegalArgumentException("unknow visilibity " + v);
 		}
 	}
 
 
-	private String getJavaType(String t)
-	{
-		if (t.equals("string"))
-		{
+	private String getJavaType(String t) {
+		if (t.equals("string")) {
 			return "String";
-		}
-		else if (t.equals("set"))
-		{
+		} else if (t.equals("set")) {
 			return "java.util.Set";
-		}
-		else if (t.equals("sequence"))
-		{
+		} else if (t.equals("sequence")) {
 			return "java.util.List";
-		}
-		else if (t.equals("class"))
-		{
+		} else if (t.equals("class")) {
 			return "Class";
-		}
-		else
-		{
+		} else {
 			return t;
 		}
 	}
