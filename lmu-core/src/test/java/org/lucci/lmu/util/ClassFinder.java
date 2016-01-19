@@ -1,10 +1,8 @@
-package org.lucci.lmu;
+package org.lucci.lmu.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 public class ClassFinder {
 

@@ -1,22 +1,23 @@
-package org.lucci.lmu;
+package org.lucci.lmu.output;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.lucci.lmu.LmuCore;
 import org.lucci.lmu.input.Analyzer;
 import org.lucci.lmu.input.JarFileAnalyser;
 import org.lucci.lmu.input.ParseError;
 import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
+import org.lucci.lmu.util.ClassFinder;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
