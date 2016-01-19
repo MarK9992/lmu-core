@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author luc.hogie
  */
-public class DotWriter implements Writer {
+class DotWriter implements Writer {
 	private String fontName = "Times";
 
 	@Override

@@ -25,6 +25,11 @@ public class Model extends ModelElement implements IModel
 		return alignments;
 	}
 
+	/**
+	 * This constructor will add a default set of primitive entities :
+	 * <i>int, long, char, float, double, void, string, class, boolean, set,
+	 * sequence, map, date</i> and <i>object</i> entities
+	 */
 	public Model()
 	{
 		addEntity(createPrimitiveEntity("int"));
@@ -158,6 +163,12 @@ public class Model extends ModelElement implements IModel
 		return removed;
 	}
 
+	/**
+	 * This method will clone the Model by only cloning the entities
+	 * @return
+	 * 		The model's clone containing the same entities
+	 * @throws CloneNotSupportedException
+	 */
 	@Override
 	public Object clone() throws CloneNotSupportedException
 	{

@@ -11,7 +11,7 @@ import org.lucci.lmu.model.*;
  *
  * @author luc.hogie, Benni Benjamin
  */
-public class LmuWriter implements Writer {
+class LmuWriter implements Writer {
 	public byte[] writeModel(IModel model) {
 		StringBuilder text = new StringBuilder();
 

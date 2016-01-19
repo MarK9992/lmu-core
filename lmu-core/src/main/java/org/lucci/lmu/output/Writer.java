@@ -8,7 +8,7 @@ import org.lucci.lmu.model.IModel;
  *
  * @author Marc Karassev, Benjamin Benni
  */
-public interface Writer {
+interface Writer {
 
 	/**
 	 * This method takes a IModel implementation and produces bytes array<br/>

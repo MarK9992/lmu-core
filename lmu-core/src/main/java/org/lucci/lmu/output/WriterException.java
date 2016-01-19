@@ -7,7 +7,7 @@ package org.lucci.lmu.output;
 /**
  * @author luc.hogie
  */
-public class WriterException extends Exception {
+class WriterException extends Exception {
 	public WriterException(String s) {
 		super(s);
 	}

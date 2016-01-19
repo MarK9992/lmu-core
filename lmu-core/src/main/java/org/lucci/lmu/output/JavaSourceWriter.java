@@ -14,7 +14,7 @@ import java.util.Iterator;
 /**
  * @author luc.hogie
  */
-public class JavaSourceWriter implements Writer {
+class JavaSourceWriter implements Writer {
 
 	/* (non-Javadoc)
 	 * @see org.lucci.lmu.ViewFactory#createViewData(org.lucci.lmu.model.ClassDiagram)

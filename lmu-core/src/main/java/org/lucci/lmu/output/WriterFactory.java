@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author luc.hogie, Benjamin Benni and Marc Karassev
  */
-public abstract class WriterFactory {
+abstract class WriterFactory {
 
 	static Map<String, Writer> factoryMap = new HashMap<String, Writer>();
 

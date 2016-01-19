@@ -12,7 +12,7 @@ import toools.extern.Proces;
 /**
  * @author luc.hogie, Marc Karassev
  */
-public class GraphVizBasedViewFactory implements Writer {
+class GraphVizBasedViewFactory implements Writer {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
