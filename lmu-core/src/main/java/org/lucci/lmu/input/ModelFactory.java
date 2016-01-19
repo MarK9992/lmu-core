@@ -8,20 +8,18 @@ import java.util.Map;
  */
 
 /**
- * @author luc.hogie
+ * @author luc.hogie, Marc Karassev
  */
 public abstract class ModelFactory {
 
-	static private Map<String, ModelBuilder> factoryMap = new HashMap<>();
+	static private Map<String, ClassesAnalyzer> factoryMap = new HashMap<>();
 
-	static
-	{
+	static {
+		factoryMap.put(null, new ClassesAnalyzer());
 		factoryMap.put("jar", new JarFileAnalyser());
-		// TODO put analyzer
 	}
 
-	public static ModelBuilder getModelFactory(String type)
-	{
+	public static ClassesAnalyzer getModelFactory(String type) {
 		return factoryMap.get(type);
 	}
 }

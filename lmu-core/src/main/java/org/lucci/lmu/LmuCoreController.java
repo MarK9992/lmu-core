@@ -2,7 +2,7 @@ package org.lucci.lmu;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lucci.lmu.input.Analyzer;
+import org.lucci.lmu.input.ClassesAnalyzer;
 import org.lucci.lmu.input.JarFileAnalyser;
 import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
@@ -29,7 +29,7 @@ public class LmuCoreController implements LmuCore {
 
 	@Override
 	public void analyzeClasses(List<Class<?>> classes, String outputPath, String outputFormat) {
-		IModel model = new Analyzer().createModelFromClasses(classes);
+		IModel model = new ClassesAnalyzer().createModelFromClasses(classes);
 
 		modelExporter.exportToFile(model, outputPath, outputFormat);
 	}
@@ -37,7 +37,7 @@ public class LmuCoreController implements LmuCore {
 	@Override
 	public void analyzeJar(String jarPath, String outputPath, String outputFormat) {
         try {
-            IModel model = new JarFileAnalyser().createModel(jarPath);
+            IModel model = new JarFileAnalyser().createModelFromJar(jarPath);
 
             modelExporter.exportToFile(model, outputPath, outputFormat);
         } catch (Exception e) {

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by Benjamin on 05/01/2016.
+ * @author Benjamin Benni
  */
 public class JarFileAnalyzerTest {
 
@@ -24,7 +24,7 @@ public class JarFileAnalyzerTest {
 	public void highLevelTest() throws IOException, ParseError {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
 
-		IModel model = new JarFileAnalyser().createModel(url.getPath());
+		IModel model = new JarFileAnalyser().createModelFromJar(url.getPath());
 		Entity e = Entities.findEntityByName(model, "ModelExporterImpl");
 
 		assertEquals("ModelExporterImpl", e.getName());
@@ -34,7 +34,7 @@ public class JarFileAnalyzerTest {
 	public void endToEndTest() throws IOException, ParseError, WriterException {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
 
-		IModel model = new JarFileAnalyser().createModel(url.getPath());
+		IModel model = new JarFileAnalyser().createModelFromJar(url.getPath());
 
 		DotWriter dotTextFactory = new DotWriter();
 		byte[] dotText = dotTextFactory.writeModel(model);

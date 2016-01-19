@@ -3,7 +3,6 @@ package org.lucci.lmu.input;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.model.*;
-import toools.ClassPath;
 
 import java.lang.reflect.*;
 import java.util.*;
@@ -11,7 +10,7 @@ import java.util.*;
 /**
  * @author Marc Karassev
  */
-public class Analyzer {
+public class ClassesAnalyzer {
 
     // Constants
 
@@ -19,12 +18,13 @@ public class Analyzer {
 
     // Attributes
 
-    protected Map<Class<?>, Entity> primitiveMap = new HashMap<Class<?>, Entity>();
-    protected Map<Entity, Class<?>> entity_class = new HashMap<Entity, Class<?>>();
+    protected Map<Class<?>, Entity> primitiveMap = new HashMap<>();
+    protected Map<Entity, Class<?>> entity_class = new HashMap<>();
+    protected List<Class<?>> classes;
 
     // Methods
 
-    public IModel createModelFromClasses(List<Class<?>> classes) {
+    protected IModel createModel() {
         IModel model = new Model();
 
         fillPrimitiveMap(model);
@@ -51,6 +51,11 @@ public class Analyzer {
         fillModel(model);
 
         return model;
+    }
+
+    public IModel createModelFromClasses(List<Class<?>> classes) {
+        this.classes = classes;
+        return createModel();
     }
 
     protected void fillPrimitiveMap(IModel model) {

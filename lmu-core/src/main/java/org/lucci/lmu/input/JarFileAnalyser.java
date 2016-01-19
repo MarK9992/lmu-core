@@ -18,13 +18,9 @@ import java.net.URLClassLoader;
 /**
  * @author luc.hogie, Marc Karassev
  */
-public class JarFileAnalyser extends Analyzer implements ModelBuilder {
+public class JarFileAnalyser extends ClassesAnalyzer {
 
-    @Override
-    public IModel createModel(String jarPath) {
-        IModel model = new Model();
-
-        fillPrimitiveMap(model);
+    public IModel createModelFromJar(String jarPath) {
         try {
             URL url = new URL("file://" + jarPath);
             File file = new File(url.getPath());
@@ -34,14 +30,13 @@ public class JarFileAnalyser extends Analyzer implements ModelBuilder {
 
             jarFile.setContent(FileUtilities.getFileContent(file));
             classContainers.add(new ClassContainer(jarFile, classLoader));
-            model = createModelFromClasses(classContainers.listAllClasses());
+            this.classes = classContainers.listAllClasses();
             jarFile.delete();
         }
-        catch (IOException ex)
-        {
+        catch (IOException ex) {
             throw new IllegalStateException();
         }
 
-        return model;
+        return createModel();
     }
 }

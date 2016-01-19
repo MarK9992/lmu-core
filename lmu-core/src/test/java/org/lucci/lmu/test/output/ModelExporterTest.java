@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.lucci.lmu.LmuCore;
-import org.lucci.lmu.input.Analyzer;
+import org.lucci.lmu.input.ClassesAnalyzer;
 import org.lucci.lmu.input.JarFileAnalyser;
 import org.lucci.lmu.input.ParseError;
 import org.lucci.lmu.model.IModel;
@@ -72,11 +72,11 @@ public class ModelExporterTest {
         }
 
         LOGGER.info("creating model from classes");
-        inputPackageModel = new Analyzer().createModelFromClasses(classes);
+        inputPackageModel = new ClassesAnalyzer().createModelFromClasses(classes);
 
         LOGGER.info("creating model from jar");
         assertNotNull(jarUrl);
-        sampleOrgJarModel = new JarFileAnalyser().createModel(jarUrl.getPath());
+        sampleOrgJarModel = new JarFileAnalyser().createModelFromJar(jarUrl.getPath());
     }
 
     // Tests
