@@ -1,4 +1,4 @@
-package org.lucci.lmu.util;
+package org.lucci.lmu.test.util;
 
 import java.io.File;
 import java.net.URL;

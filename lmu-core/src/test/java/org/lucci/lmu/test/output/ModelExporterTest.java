@@ -1,4 +1,4 @@
-package org.lucci.lmu.output;
+package org.lucci.lmu.test.output;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +11,7 @@ import org.lucci.lmu.input.ParseError;
 import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
-import org.lucci.lmu.util.ClassFinder;
+import org.lucci.lmu.test.util.ClassFinder;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +35,7 @@ public class ModelExporterTest {
     // Constants
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final String JAR_NAME = "sample-org", PACKAGE_NAME = "input";
+    private static final String JAR_NAME = "sample-org", CLASSES_NAME = "inputAndLmuCore";
 
     // Variables
 
@@ -48,7 +48,7 @@ public class ModelExporterTest {
     public static void setUp() throws IOException, ParseError {
         URL jarUrl = Thread.currentThread().getContextClassLoader().getResource(JAR_NAME + ".jar");
         File file = new File(LmuCore.DEFAULT_OUTPUT_PATH);
-        DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
+        DirectoryStream<Path> stream;
         ClassLoader currentClassLoader = Thread.currentThread().getContextClassLoader();
         ArrayList<Class<?>> classes = new ArrayList<>();
 
@@ -57,6 +57,7 @@ public class ModelExporterTest {
         LOGGER.info("cleaning out directory");
         file.mkdirs();
         assertTrue(file.exists());
+        stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
         for (Path filePath: stream) {
             Files.delete(filePath);
         }
@@ -93,8 +94,8 @@ public class ModelExporterTest {
     public void exportClassesToLmuTest() throws FileNotFoundException {
         final String FORMAT = "lmu";
 
-        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -111,8 +112,8 @@ public class ModelExporterTest {
     public void exportClassesToDotTest() throws FileNotFoundException {
         final String FORMAT = "dot";
 
-        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -129,8 +130,8 @@ public class ModelExporterTest {
     public void exportClassesToJavaTest() throws FileNotFoundException {
         final String FORMAT = "java";
 
-        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -147,8 +148,8 @@ public class ModelExporterTest {
     public void exportClassesToPdfTest() throws FileNotFoundException {
         final String FORMAT = "pdf";
 
-        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -165,8 +166,8 @@ public class ModelExporterTest {
     public void exportClassesToPngTest() throws FileNotFoundException {
         final String FORMAT = "png";
 
-        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -183,8 +184,8 @@ public class ModelExporterTest {
     public void exportClassesToPsTest() throws FileNotFoundException {
         final String FORMAT = "ps";
 
-        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -201,8 +202,8 @@ public class ModelExporterTest {
     public void exportClassesToFigTest() throws FileNotFoundException {
         final String FORMAT = "fig";
 
-        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 
@@ -219,8 +220,8 @@ public class ModelExporterTest {
     public void exportClassesToSvgTest() throws FileNotFoundException {
         final String FORMAT = "svg";
 
-        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 }

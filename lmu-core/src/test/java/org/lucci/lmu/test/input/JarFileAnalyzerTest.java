@@ -1,4 +1,4 @@
-package org.lucci.lmu.input;
+package org.lucci.lmu.test.input;
 
 import org.junit.Test;
 import org.lucci.lmu.input.JarFileAnalyser;
