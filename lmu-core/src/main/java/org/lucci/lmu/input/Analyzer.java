@@ -3,17 +3,15 @@ package org.lucci.lmu.input;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.model.*;
-import toools.io.FileUtilities;
+import toools.ClassPath;
 
-import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.*;
 import java.util.*;
 
 /**
  * @author Marc Karassev
  */
-public abstract class Analyzer implements ModelBuilder {
+public class Analyzer {
 
     // Constants
 
@@ -25,6 +23,32 @@ public abstract class Analyzer implements ModelBuilder {
     protected Map<Entity, Class<?>> entity_class = new HashMap<Entity, Class<?>>();
 
     // Methods
+
+    public IModel createModelFromClassPath(ClassPath classPath) {
+        IModel model = new Model();
+
+        fillPrimitiveMap(model);
+        // take all the classes in the jar files and convert them to LMU
+        // Entities
+        for (Class<?> thisClass : classPath.listAllClasses()) {
+            // if this is not an anonymous inner class (a.b$1)
+            // we take it into account
+            if (!thisClass.getName().matches(".+\\$[0-9]+")) {
+                Entity entity = new Entity();
+                entity.setName(computeEntityName(thisClass));
+                entity.setNamespace(computeEntityNamespace(thisClass));
+                entity_class.put(entity, thisClass);
+                model.addEntity(entity);
+            }
+        }
+
+        // at this only the name of entities is known
+        // neither members nor relation are known
+        // let's find them
+        fillModel(model);
+
+        return model;
+    }
 
     protected void fillPrimitiveMap(IModel model) {
         primitiveMap.put(void.class, Entities.findEntityByName(model, "void"));

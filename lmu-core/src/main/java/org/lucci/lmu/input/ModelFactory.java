@@ -17,8 +17,7 @@ public abstract class ModelFactory {
 	static
 	{
 		factoryMap.put("jar", new JarFileAnalyser());
-		factoryMap.put("pckg", new PackageAnalyzer()); // TODO delete class after refactor
-
+		// TODO put analyzer
 	}
 
 	public static ModelBuilder getModelFactory(String type)

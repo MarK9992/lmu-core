@@ -1,5 +1,7 @@
 package org.lucci.lmu;
 
+import toools.ClassPath;
+
 /**
  * @author Benjamin Benni, Marc Karassev
  * 
@@ -13,7 +15,7 @@ public interface LmuCore {
 	
 	// Methods
 	
-	void analyzePackage(String packageName, String outputPath, String outputFormat);
+	void analyzePackage(ClassPath classPath, String outputPath, String outputFormat);
 
     void analyzeJar(String jarPath, String outputPath, String outputFormat);
 }

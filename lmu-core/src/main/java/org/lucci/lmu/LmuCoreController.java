@@ -2,11 +2,12 @@ package org.lucci.lmu;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lucci.lmu.input.Analyzer;
 import org.lucci.lmu.input.JarFileAnalyser;
-import org.lucci.lmu.input.PackageAnalyzer;
 import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
+import toools.ClassPath;
 
 /**
  * @author Benjamin Benni, Marc Karassev
@@ -26,8 +27,8 @@ public class LmuCoreController implements LmuCore {
 	// Methods
 
 	@Override
-	public void analyzePackage(String packageName, String outputPath, String outputFormat) {
-		IModel model = new PackageAnalyzer().createModel(packageName);
+	public void analyzePackage(ClassPath classPath, String outputPath, String outputFormat) {
+		IModel model = new Analyzer().createModelFromClassPath(classPath);
 
 		modelExporter.exportToFile(model, outputPath, outputFormat);
 	}

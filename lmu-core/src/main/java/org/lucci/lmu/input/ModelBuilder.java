@@ -9,5 +9,5 @@ public interface ModelBuilder {
 
     // Methods
 
-    IModel createModel(String item) throws ParseError, ModelException;
+    IModel createModel(String item) throws ParseError, ModelException; // TODO refactor
 }

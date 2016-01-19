@@ -18,7 +18,7 @@ import java.net.URLClassLoader;
 /**
  * @author luc.hogie, Marc Karassev
  */
-public class JarFileAnalyser extends Analyzer {
+public class JarFileAnalyser extends Analyzer implements ModelBuilder {
 
     @Override
     public IModel createModel(String jarPath) {
@@ -38,6 +38,7 @@ public class JarFileAnalyser extends Analyzer {
 
             classContainers.add(new ClassContainer(jarFile, classLoader));
 
+            // TODO refactor
             // take all the classes in the jar files and convert them to LMU
             // Entities
             for (Class<?> thisClass : classContainers.listAllClasses())
