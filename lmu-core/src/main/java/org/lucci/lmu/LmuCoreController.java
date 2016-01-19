@@ -7,7 +7,8 @@ import org.lucci.lmu.input.JarFileAnalyser;
 import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
-import toools.ClassPath;
+
+import java.util.List;
 
 /**
  * @author Benjamin Benni, Marc Karassev
@@ -27,8 +28,8 @@ public class LmuCoreController implements LmuCore {
 	// Methods
 
 	@Override
-	public void analyzePackage(ClassPath classPath, String outputPath, String outputFormat) {
-		IModel model = new Analyzer().createModelFromClassPath(classPath);
+	public void analyzeClasses(List<Class<?>> classes, String outputPath, String outputFormat) {
+		IModel model = new Analyzer().createModelFromClasses(classes);
 
 		modelExporter.exportToFile(model, outputPath, outputFormat);
 	}

@@ -24,13 +24,15 @@ public class Analyzer {
 
     // Methods
 
-    public IModel createModelFromClassPath(ClassPath classPath) {
+    public IModel createModelFromClasses(List<Class<?>> classes) {
         IModel model = new Model();
 
         fillPrimitiveMap(model);
         // take all the classes in the jar files and convert them to LMU
         // Entities
-        for (Class<?> thisClass : classPath.listAllClasses()) {
+        LOGGER.debug("iterating on classes");
+        for (Class<?> thisClass: classes) {
+            LOGGER.debug(thisClass);
             // if this is not an anonymous inner class (a.b$1)
             // we take it into account
             if (!thisClass.getName().matches(".+\\$[0-9]+")) {
@@ -41,6 +43,7 @@ public class Analyzer {
                 model.addEntity(entity);
             }
         }
+        LOGGER.debug("end of class iteration");
 
         // at this only the name of entities is known
         // neither members nor relation are known

@@ -53,7 +53,7 @@ public class LmuCoreTest {
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.pdf");
-        //CONTROLLER.analyzePackage(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        //CONTROLLER.analyzeClasses(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
         //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
@@ -64,7 +64,7 @@ public class LmuCoreTest {
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.lmu");
-        //CONTROLLER.analyzePackage(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        //CONTROLLER.analyzeClasses(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
         //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
@@ -75,7 +75,7 @@ public class LmuCoreTest {
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.dot");
-        //CONTROLLER.analyzePackage(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        //CONTROLLER.analyzeClasses(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
         //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
@@ -86,7 +86,7 @@ public class LmuCoreTest {
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.java");
-        //CONTROLLER.analyzePackage(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        //CONTROLLER.analyzeClasses(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
         //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
@@ -97,7 +97,7 @@ public class LmuCoreTest {
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.png");
-        //CONTROLLER.analyzePackage(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        //CONTROLLER.analyzeClasses(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
         //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
@@ -108,7 +108,7 @@ public class LmuCoreTest {
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.ps");
-        //CONTROLLER.analyzePackage(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        //CONTROLLER.analyzeClasses(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
         //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
@@ -119,7 +119,7 @@ public class LmuCoreTest {
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.svg");
-        //CONTROLLER.analyzePackage(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        //CONTROLLER.analyzeClasses(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
         //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }
@@ -130,7 +130,7 @@ public class LmuCoreTest {
 
         CONTROLLER.analyzeJar(SAMPLE_ORG_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org", FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "custom-sample-org.fig");
-        //CONTROLLER.analyzePackage(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
+        //CONTROLLER.analyzeClasses(INPUT_PACKAGE, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
         //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
         // check the files contents by yourself now
     }

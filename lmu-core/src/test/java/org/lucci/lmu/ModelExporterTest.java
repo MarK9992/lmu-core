@@ -1,7 +1,10 @@
 package org.lucci.lmu;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.lucci.lmu.input.Analyzer;
 import org.lucci.lmu.input.JarFileAnalyser;
 import org.lucci.lmu.input.ParseError;
 import org.lucci.lmu.model.IModel;
@@ -13,10 +16,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -25,6 +30,11 @@ import static org.junit.Assert.assertTrue;
  * @author Marc Karassev
  */
 public class ModelExporterTest {
+
+    // Constants
+
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static final String JAR_NAME = "sample-org", PACKAGE_NAME = "input";
 
     // Variables
 
@@ -35,33 +45,55 @@ public class ModelExporterTest {
 
     @BeforeClass
     public static void setUp() throws IOException, ParseError {
-        URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
+        URL jarUrl = Thread.currentThread().getContextClassLoader().getResource(JAR_NAME + ".jar");
         File file = new File(LmuCore.DEFAULT_OUTPUT_PATH);
-
-        file.mkdirs();
-        assertNotNull(url);
-        assertTrue(file.exists());
-
         DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
+        ClassLoader currentClassLoader = Thread.currentThread().getContextClassLoader();
+        ArrayList<Class<?>> classes = new ArrayList<>();
 
-        sampleOrgJarModel = new JarFileAnalyser().createModel(url.getPath());
-        //inputPackageModel = new PackageAnalyzer().createModel("org.lucci.lmu.input"); TODO màj
         modelExporter = new ModelExporterImpl();
+
+        LOGGER.info("cleaning out directory");
+        file.mkdirs();
+        assertTrue(file.exists());
         for (Path filePath: stream) {
             Files.delete(filePath);
         }
+
+        LOGGER.info("creating class list");
+        try {
+            classes.add(currentClassLoader.loadClass("org.lucci.lmu.LmuCore"));
+            classes.add(currentClassLoader.loadClass("org.lucci.lmu.LmuCoreController"));
+            // TODO add input package
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        LOGGER.info("creating model from classes");
+        inputPackageModel = new Analyzer().createModelFromClasses(classes);
+
+        LOGGER.info("creating model from jar");
+        assertNotNull(jarUrl);
+        sampleOrgJarModel = new JarFileAnalyser().createModel(jarUrl.getPath());
     }
 
     // Tests
 
     @Test
-    public void exportToLmuTest() throws FileNotFoundException {
+    public void exportJarToLmuTest() throws FileNotFoundException {
         final String FORMAT = "lmu";
 
-        modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + "sample-org", FORMAT);
-        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "sample-org.lmu");
-        //modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + "input", FORMAT);
-        //new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + "input." + FORMAT);
+        modelExporter.exportToFile(sampleOrgJarModel, LmuCore.DEFAULT_OUTPUT_PATH + JAR_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + JAR_NAME + "." + FORMAT);
+        // check the files content by yourself now
+    }
+
+    @Test
+    public void exportClassesToLmuTest() throws FileNotFoundException {
+        final String FORMAT = "lmu";
+
+        modelExporter.exportToFile(inputPackageModel, LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PACKAGE_NAME + "." + FORMAT);
         // check the files content by yourself now
     }
 
