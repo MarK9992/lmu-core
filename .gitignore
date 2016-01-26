@@ -1,5 +1,5 @@
-lmu-core/logs
-lmu-core/out
+logs
+out
 
 *.*~
 *.idea
