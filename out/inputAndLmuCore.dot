@@ -1,0 +1,27 @@
+digraph ClassDiagram
+{
+	graph [rankdir=TD,ranksep=0.75];
+	edge [fontname="Times", fontsize=10,labelfontname="Times", labelfontsize=10];
+	node [fontname="Times", fontsize=10];
+
+
+	988764981 [shape="record", fontcolor=black, fontsize=10.0, label="{ParseError}"];
+	"-1146398326" [shape="record", fontcolor=black, fontsize=10.0, label="{ModelExporter}"];
+	"-119390394" [shape="record", fontcolor=black, fontsize=10.0, label="{ModelException|+ getModelElementsInvolved() : set\l+ getMessage() : string\l}"];
+	2080559107 [shape="record", fontcolor=black, fontsize=10.0, label="{Entity}"];
+	1173726614 [shape="record", fontcolor=black, fontsize=10.0, label="{JarFileAnalyser|+ createModelFromJar(string) : IModel\l}"];
+	594532283 [shape="record", fontcolor=black, fontsize=10.0, label="{LmuException|- line : int\l- suggestion : string\l|+ setLine(int) : void\l+ getLine() : int\l+ getMessage() : string\l}"];
+	1202657996 [shape="record", fontcolor=black, fontsize=10.0, label="{ClassesAnalyzer|+ createModelFromClasses(sequence) : IModel\l# createModel() : IModel\l# fillPrimitiveMap(IModel) : void\l+ computeEntityName(class) : string\l+ computeEntityNamespace(class) : string\l# initInheritance(class, Entity, IModel) : void\l# getEntity(IModel, class) : Entity\l# initAttributes(class, Entity, IModel) : void\l# initOperations(class, Entity, IModel) : void\l# getVisibility(Member) : Visibility\l# fillModel(IModel) : void\l}"];
+	"-1993902406" [shape="record", fontcolor=black, fontsize=10.0, label="{Member}"];
+	"-809373649" [shape="record", fontcolor=black, fontsize=10.0, label="{Exception}"];
+	"-360169678" [shape="record", fontcolor=black, fontsize=10.0, label="{Visibility}"];
+	1961538739 [shape="record", fontcolor=black, fontsize=10.0, label="{LmuCore|+ analyzeJar(string, string, string) : void\l+ analyzeClasses(sequence, string, string) : void\l}"];
+	1590882479 [shape="record", fontcolor=black, fontsize=10.0, label="{LmuCoreController|- modelExporter : ModelExporter\l|+ analyzeJar(string, string, string) : void\l+ analyzeClasses(sequence, string, string) : void\l}"];
+	"-2130522016" [shape="record", fontcolor=black, fontsize=10.0, label="{IModel}"];
+	881125708 [shape="record", fontcolor=black, fontsize=10.0, label="{NamedModelElement}"];
+	988764981 -> 594532283 [arrowhead=onormal];
+	"-119390394" -> 594532283 [arrowhead=onormal];
+	1590882479 -> 1961538739 [arrowhead=onormal,style=dashed];
+	1173726614 -> 1202657996 [arrowhead=onormal,style=dashed];
+	594532283 -> "-809373649" [arrowhead=onormal,style=dashed];
+}

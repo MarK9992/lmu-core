@@ -1,0 +1,57 @@
+
+entity ParseError
+	extends LmuException
+
+entity ModelExporter
+
+entity ModelException
+	features public operation getModelElementsInvolved of type set
+	features public operation getMessage of type string
+	extends LmuException
+
+entity Entity
+
+entity JarFileAnalyser
+	features public operation createModelFromJar of type IModel expecting string
+	extends ClassesAnalyzer
+
+entity LmuException
+	features private attribute line of type int
+	features private attribute suggestion of type string
+	features public operation setLine of type void expecting int
+	features public operation getLine of type int
+	features public operation getMessage of type string
+	extends Exception
+
+entity ClassesAnalyzer
+	features public operation createModelFromClasses of type IModel expecting sequence
+	features protected operation createModel of type IModel
+	features protected operation fillPrimitiveMap of type void expecting IModel
+	features public operation computeEntityName of type string expecting class
+	features public operation computeEntityNamespace of type string expecting class
+	features protected operation initInheritance of type void expecting class Entity IModel
+	features protected operation getEntity of type Entity expecting IModel class
+	features protected operation initAttributes of type void expecting class Entity IModel
+	features protected operation initOperations of type void expecting class Entity IModel
+	features protected operation getVisibility of type Visibility expecting Member
+	features protected operation fillModel of type void expecting IModel
+
+entity Member
+
+entity Exception
+
+entity Visibility
+
+entity LmuCore
+	features public operation analyzeJar of type void expecting string string string
+	features public operation analyzeClasses of type void expecting sequence string string
+
+entity LmuCoreController
+	features private attribute modelExporter of type ModelExporter
+	features public operation analyzeJar of type void expecting string string string
+	features public operation analyzeClasses of type void expecting sequence string string
+	extends LmuCore
+
+entity IModel
+
+entity NamedModelElement
