@@ -8,7 +8,13 @@ import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.jar.Attributes;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 /**
  * @author Benjamin Benni, Marc Karassev
@@ -43,5 +49,16 @@ public class LmuCoreController implements LmuCore {
         } catch (Exception e) {
             e.printStackTrace();
         }
+	}
+
+	@Override
+	public void analyzeJarDependencies(String jarPath, String outputPath, String outputFormat) throws IOException {
+		File file = new File(jarPath);
+        JarFile jarFile = new JarFile(file);
+        Manifest manifest = jarFile.getManifest();
+        Map<String, Attributes> entries = manifest.getEntries();
+
+        LOGGER.debug(manifest.getMainAttributes().get(Attributes.Name.MANIFEST_VERSION));
+        entries.forEach((name, attributes) -> LOGGER.debug(name + "\t" + attributes));
 	}
 }

@@ -1,5 +1,6 @@
 package org.lucci.lmu;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public interface LmuCore {
 	
 	// Constants
 	
-	String DEFAULT_OUTPUT_PATH = "./out/";
+	String DEFAULT_OUTPUT_PATH = "./lmout/";
 	
 	// Methods
 
@@ -42,4 +43,14 @@ public interface LmuCore {
      * 		It can be : 'pdf', 'jpg', 'png', 'fig', 'svg', 'lmu', 'ps' or 'dot'
      */
     void analyzeJar(String jarPath, String outputPath, String outputFormat);
+
+    /**
+     * Analyzes deployment units inside a jar file.
+     *
+     * @param jarPath the absolute path of the jar file to analyze
+     * @param outputPath the path where to produce the analysis result
+     * @param outputFormat the format of the analysis result, may be either
+     *                     'pdf', 'jpg', 'png', 'fig', 'svg', 'lmu', 'ps' or 'dot'
+     */
+	void analyzeJarDependencies(String jarPath, String outputPath, String outputFormat) throws IOException;
 }

@@ -34,7 +34,8 @@ public class LmuCoreTest {
     private static final LmuCore CONTROLLER = new LmuCoreController();
     private static final String PACKAGE_FULL = "org.lucci.lmu.input", JAR_NAME = "sample-org", CLASSES_NAME = "inputAndLmuCore",
         CLASS1_FULL = "org.lucci.lmu.LmuCore", CLASS2_FULL = "org.lucci.lmu.LmuCoreController";
-    private static final URL SAMPLE_ORG_URL = Thread.currentThread().getContextClassLoader().getResource(JAR_NAME + ".jar");
+    private static final URL SAMPLE_ORG_URL = Thread.currentThread().getContextClassLoader().getResource(JAR_NAME + ".jar"),
+        TEST_URL = Thread.currentThread().getContextClassLoader().getResource("test.jar");
     private static final ArrayList<Class<?>> CLASSES = new ArrayList<>();
 
     // Set-ups and tear-downs
@@ -209,5 +210,13 @@ public class LmuCoreTest {
         CONTROLLER.analyzeClasses(CLASSES, LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME, FORMAT);
         new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + CLASSES_NAME + "." + FORMAT);
         // check the files contents by yourself now
+    }
+
+    @Test
+    public void analyzeJarDependenciesToPdfTest() throws IOException {
+        final String FORMAT = "pdf";
+
+        CONTROLLER.analyzeJarDependencies(TEST_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH
+                + JAR_NAME + "-dependencies", FORMAT);
     }
 }
