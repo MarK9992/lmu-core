@@ -7,7 +7,9 @@ import org.lucci.lmu.model.*;
  */
 
 /**
- * @author luc.hogie
+ * This class produces a LMU representation of the given model
+ *
+ * @author luc.hogie, Benni Benjamin
  */
 public class LmuWriter implements Writer
 {

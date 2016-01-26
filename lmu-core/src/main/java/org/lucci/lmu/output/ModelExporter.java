@@ -3,11 +3,10 @@ package org.lucci.lmu.output;
 import org.lucci.lmu.model.IModel;
 
 /**
- * 
  * @author Marc Karassev
- *
- * API for the org.lucci.lmu.output package.
- * Specifies methods for exporting models to files.
+ *         <p>
+ *         API for the org.lucci.lmu.output package.
+ *         Specifies methods for exporting models to files.
  */
 public interface ModelExporter {
 

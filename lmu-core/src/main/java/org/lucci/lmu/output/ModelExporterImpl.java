@@ -8,11 +8,9 @@ import toools.io.file.RegularFile;
 import java.io.IOException;
 
 /**
- * 
  * @author Marc Karassev
- * 
- * Implementation of the {@link ModelExporter} interface.
- *
+ *         <p>
+ *         Implementation of the {@link ModelExporter} interface.
  */
 public class ModelExporterImpl implements ModelExporter {
 	
