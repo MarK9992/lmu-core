@@ -120,7 +120,7 @@ public class DotWriter implements Writer {
                 buf.append(" -> ");
                 buf.append(quoteNodeNameIfNecessary(String.valueOf(dependencyRelation.getHeadEntity().getName().hashCode())));
 
-                buf.append(" [arrowhead=none");
+                buf.append(" [arrowtail=vee");
                 buf.append(",style=dashed");
                 buf.append(", label=uses");
 
@@ -190,7 +190,7 @@ public class DotWriter implements Writer {
             buf.append((isRecord ? "}" : "") + "\"];");
         }
 
-        //  UNREACHABLE CODE ??! isRecord is _always_ true
+        //  UNREACHABLE CODE ??! isRecord was _always_ true
         else {
             String label = "";
             if(entity.isAbsract()) {
