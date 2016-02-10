@@ -3,6 +3,7 @@ package org.lucci.lmu.output;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.model.IModel;
+import sun.rmi.runtime.Log;
 import toools.io.file.RegularFile;
 
 import java.io.IOException;
@@ -42,6 +43,7 @@ public class ModelExporterImpl implements ModelExporter {
 			}
 			catch (IOException ex) {
 				LOGGER.error("I/O error while writing file " + filePath);
+				LOGGER.error(ex.getMessage());
 			}
 		}
 	}

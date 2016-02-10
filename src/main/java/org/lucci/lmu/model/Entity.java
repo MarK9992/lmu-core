@@ -96,6 +96,7 @@ public class Entity extends NamedModelElement
 		return getName() + "(" + getNamespace() + ")";
 	}
 
+	//	Only used by Relations#findRelationsDeclaredBy which is only used by LMUWriter
 	public boolean declareRelation(Relation rel)
 	{
 		if (rel instanceof InheritanceRelation)
@@ -105,6 +106,9 @@ public class Entity extends NamedModelElement
 		else if (rel instanceof AssociationRelation)
 		{
 			return ((AssociationRelation) rel).getContainerEntity() == this;
+		}
+		else if (rel instanceof DependencyRelation) {
+			return ((DependencyRelation) rel).getTailEntity() == this;
 		}
 		else
 		{
@@ -192,6 +196,10 @@ public class Entity extends NamedModelElement
 	{
 		// return isInterface;
 		return getAttributes().isEmpty();
+	}
+
+	public boolean isDeploymentUnit() {
+		return false;
 	}
 
 	public void setInterface(boolean isInterface)

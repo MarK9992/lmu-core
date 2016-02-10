@@ -22,7 +22,7 @@ public class ManifestAnalyzer {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static void main(String[] args) throws IOException {
-        System.out.println(ManifestAnalyzer.getManifestInfo("/home/mark/Downloads/lmu-eclipse-plugin-bkp.jar"));
+        System.out.println(ManifestAnalyzer.getManifestInfo("src/main/resources/lmu-eclipse-plugin-bkp.jar"));
     }
 
     public static List<String> getManifestInfo(String pathToJarFile) throws IOException {
@@ -55,26 +55,33 @@ public class ManifestAnalyzer {
                 //fillModel(model);
             }
             Entity root = new DeploymentUnit();
-            root.setName("this");
-            root.setNamespace("this");
+            String rootName = deleteUnauthorizedToken(jarFile.getName());
+            root.setName(rootName);
+            root.setNamespace(rootName);
             model.addEntity(root);
             for (String dependency: dependencies) {
                 LOGGER.debug(dependency);
                 if (!dependency.equals(".")) {
+
+                    String nameOfFileDependency = deleteUnauthorizedToken(dependency);
+
                     Entity entity = new DeploymentUnit();
-                    entity.setName(dependency);
-                    entity.setNamespace(dependency);
+                    entity.setName(nameOfFileDependency);
+                    entity.setNamespace(nameOfFileDependency);
+
+                    LOGGER.debug("Creating new entity : " + entity.getName());
+
                     model.addEntity(entity);
                 }
             }
             for (Entity entity: model.getEntities()) {
-                if (!entity.getName().equals("this")) {
-                    model.addRelation(new AssociationRelation(root, entity));
+                if (!entity.getName().equals(rootName)) {
+                      model.addRelation(new DependencyRelation(root, entity));
                 }
             }
             LOGGER.debug("end of dependencies iteration");
 
-            new ModelExporterImpl().exportToFile(model, "/home/mark/downloads", "pdf");
+            new ModelExporterImpl().exportToFile(model, "~/Bureau/test/lol", "png");
             //String dependencies = mainAttribs.getValue("Import-Package");
             jis.close();
             return dependencies;
@@ -82,5 +89,16 @@ public class ManifestAnalyzer {
             t.printStackTrace();
             return new ArrayList<String>();
         }
+    }
+
+    static String deleteUnauthorizedToken(String str) {
+        String[] dependenciesPath = str.split("/");  //  Retrieve only file name
+        String nameOfFileDependency = dependenciesPath[dependenciesPath.length-1];
+
+        //  Delete unauthorized token (for dotWriter)
+        nameOfFileDependency = nameOfFileDependency.replace(".", "_");
+        nameOfFileDependency = nameOfFileDependency.replace("-", "_");
+
+        return  nameOfFileDependency;
     }
 }
