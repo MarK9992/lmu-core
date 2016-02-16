@@ -182,7 +182,7 @@ public class Entity extends NamedModelElement
 		return obj.getClass() == getClass() && obj.hashCode() == hashCode();
 	}
 
-	public boolean isAbsract()
+	public boolean isAbstract()
 	{
 		return isAbsract;
 	}

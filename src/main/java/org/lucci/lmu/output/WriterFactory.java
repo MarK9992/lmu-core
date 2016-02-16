@@ -1,5 +1,7 @@
 package org.lucci.lmu.output;
 
+import org.lucci.lmu.output.dot.DotWriter;
+
 import java.util.HashMap;
 import java.util.Map;
 

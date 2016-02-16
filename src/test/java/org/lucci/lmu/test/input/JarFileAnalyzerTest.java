@@ -6,7 +6,7 @@ import org.lucci.lmu.input.ParseError;
 import org.lucci.lmu.model.Entities;
 import org.lucci.lmu.model.Entity;
 import org.lucci.lmu.model.IModel;
-import org.lucci.lmu.output.DotWriter;
+import org.lucci.lmu.output.dot.DotWriter;
 import org.lucci.lmu.output.WriterException;
 
 import java.io.IOException;

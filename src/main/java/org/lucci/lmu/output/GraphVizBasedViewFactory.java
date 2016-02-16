@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.model.IModel;
 
+import org.lucci.lmu.output.dot.DotWriter;
 import toools.extern.Proces;
 
 /*
