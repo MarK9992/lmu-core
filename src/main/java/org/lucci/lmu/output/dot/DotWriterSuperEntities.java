@@ -23,21 +23,19 @@ public class DotWriterSuperEntities {
 
     private void drawEntity(StringBuffer buf, Entity entity) {
 
-        if (entity instanceof Entity) {
-            drawEntities(buf, entity);
-        } else if (entity instanceof DeploymentUnit) {
+        if (entity instanceof DeploymentUnit) {
             drawDeploymentUnit(buf, entity);
+        } else if (entity instanceof Entity) {
+            drawEntities(buf, entity);
         }
     }
 
     private void drawDeploymentUnit(StringBuffer buf, Entity superEntity) {
-        boolean isRecord = true;// visibleAttributes.size() +
-        // visibleOperations.size() > 0;
 
         buf.append("\n\t");
         buf.append(quoteNodeNameIfNecessary(String.valueOf(superEntity.getName().hashCode())));
         buf.append(" [");
-        buf.append("shape=\"" + (isRecord ? "record" : "box") + "\"");
+        buf.append("shape=\"" + "component" + "\"");
 
         if (superEntity.getColorName() != null) {
             buf.append(", fillcolor=" + superEntity.getColorName());
