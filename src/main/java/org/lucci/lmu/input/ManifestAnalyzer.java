@@ -20,71 +20,53 @@ public class ManifestAnalyzer implements JarAnalyzer {
 
     // Constants
 
-    public static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
+    private static final List<Attributes.Name> targetKeys = Collections.singletonList(new Attributes.Name("Bundle-ClassPath"));
 
     // Methods
 
     @Override
     public IModel createModelFromJar(String jarPath) throws IOException {
         File jarFile = new File(jarPath);
-        Manifest manifest;
-        FileInputStream fis = new FileInputStream(jarFile);
-        JarInputStream jis = new JarInputStream(fis);
-        manifest = jis.getManifest();
+        JarInputStream jis = new JarInputStream(new FileInputStream(jarFile));
+        Manifest manifest = jis.getManifest();
         Attributes mainAttribs = manifest.getMainAttributes();
-
-        List<Attributes.Name> targetKeys = Arrays.asList(new Attributes.Name("Bundle-ClassPath"));
-        //new Attributes.Name("Require-Bundle"),new Attributes.Name("Import-Package"));
-
         IModel model = new Model();
         ArrayList<String> dependencies = new ArrayList<>();
-        LOGGER.debug("iterating on dependencies");
-        for(Attributes.Name currentTargetKey : targetKeys) {
-            System.out.println("\n===========================");
-            System.out.println("Target Key : " + currentTargetKey);
-            System.out.println("Result : \n" + mainAttribs.get(currentTargetKey));
-            dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
-            // at this only the name of entities is known
-            // neither members nor relation are known
-            // let's find them
-            //fillModel(model);
-        }
-        Entity root = new DeploymentUnit();
+        Entity root = new DeploymentUnit(), entity;
         String rootName = deleteUnauthorizedToken(jarFile.getName());
+
+        for(Attributes.Name currentTargetKey : targetKeys) {
+            dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
+        }
+        LOGGER.debug("iterating on dependencies and adding entities to model");
         root.setName(rootName);
         root.setNamespace(rootName);
         model.addEntity(root);
         for (String dependency: dependencies) {
-            LOGGER.debug(dependency);
+            LOGGER.debug("dependency: " + dependency);
             if (!dependency.equals(".")) {
-
-                String nameOfFileDependency = deleteUnauthorizedToken(dependency);
-
-                Entity entity = new DeploymentUnit();
-                entity.setName(nameOfFileDependency);
-                entity.setNamespace(nameOfFileDependency);
-
+                dependency = deleteUnauthorizedToken(dependency);
+                entity = new DeploymentUnit();
+                entity.setName(dependency);
+                entity.setNamespace(dependency);
                 LOGGER.debug("Creating new entity : " + entity.getName());
-
                 model.addEntity(entity);
             }
         }
-        for (Entity entity: model.getEntities()) {
-            if (!entity.getName().equals(rootName)) {
-                model.addRelation(new DependencyRelation(root, entity));
+        for (Entity e: model.getEntities()) {
+            if (!e.getName().equals(rootName)) {
+                model.addRelation(new DependencyRelation(root, e));
             }
         }
         LOGGER.debug("end of dependencies iteration");
-
-        //new ModelExporterImpl().exportToFile(model, "/home/mark/bureau", "png");
-        //String dependencies = mainAttribs.getValue("Import-Package");
         jis.close();
         return model;
     }
 
     static String deleteUnauthorizedToken(String str) {
         String[] dependenciesPath = str.split("/");  //  Retrieve only file name
-        String nameOfFileDependency = dependenciesPath[dependenciesPath.length-1];
+        String nameOfFileDependency = dependenciesPath[dependenciesPath.length - 1];
 
         //  Delete unauthorized token (for dotWriter)
         nameOfFileDependency = nameOfFileDependency.replace(".", "_");
