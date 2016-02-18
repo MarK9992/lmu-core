@@ -3,7 +3,6 @@ package org.lucci.lmu.output;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.model.IModel;
-import sun.rmi.runtime.Log;
 import toools.io.file.RegularFile;
 
 import java.io.IOException;

@@ -2,6 +2,7 @@ package org.lucci.lmu.input;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lucci.lmu.LmuCore;
 import org.lucci.lmu.model.*;
 import org.lucci.lmu.output.ModelExporterImpl;
 
@@ -15,22 +16,25 @@ import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
 
-public class ManifestAnalyzer {
+public class ManifestAnalyzer implements JarAnalyzer {
 
     // Constants
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static void main(String[] args) throws IOException {
-        System.out.println(ManifestAnalyzer.getManifestInfo("src/main/resources/lmu-eclipse-plugin-bkp.jar"));
+    // Methods
+
+    @Override
+    public IModel createModelFromJar(String jarPath) throws IOException {
+        return getManifestInfo(jarPath);
     }
 
-    public static List<String> getManifestInfo(String pathToJarFile) throws IOException {
+    public static IModel getManifestInfo(String pathToJarFile) throws IOException {
         File file = new File(pathToJarFile);
         return getManifestInfo(file);
     }
 
-    public static List<String> getManifestInfo(File jarFile) throws IOException {
+    public static IModel getManifestInfo(File jarFile) throws IOException {
         try{
             Manifest manifest;
             FileInputStream fis = new FileInputStream(jarFile);
@@ -81,13 +85,13 @@ public class ManifestAnalyzer {
             }
             LOGGER.debug("end of dependencies iteration");
 
-            new ModelExporterImpl().exportToFile(model, "~/Bureau/test/lol", "png");
+            //new ModelExporterImpl().exportToFile(model, "/home/mark/bureau", "png");
             //String dependencies = mainAttribs.getValue("Import-Package");
             jis.close();
-            return dependencies;
+            return model;
         }catch(Throwable t){
             t.printStackTrace();
-            return new ArrayList<String>();
+            return null;
         }
     }
 

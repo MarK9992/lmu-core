@@ -42,4 +42,6 @@ public interface LmuCore {
      * 		It can be : 'pdf', 'jpg', 'png', 'fig', 'svg', 'lmu', 'ps' or 'dot'
      */
     void analyzeJar(String jarPath, String outputPath, String outputFormat);
+
+	void analyzeJarDependencies(String jarPath, String outputPath, String outputFormat);
 }
