@@ -1,7 +1,7 @@
 package org.lucci.lmu.test.input;
 
 import org.junit.Test;
-import org.lucci.lmu.input.JarFileAnalyser;
+import org.lucci.lmu.input.JarClassesAnalyser;
 import org.lucci.lmu.input.ParseError;
 import org.lucci.lmu.model.Entities;
 import org.lucci.lmu.model.Entity;
@@ -24,7 +24,7 @@ public class JarFileAnalyzerTest {
 	public void highLevelTest() throws IOException, ParseError {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
 
-		IModel model = new JarFileAnalyser().createModelFromJar(url.getPath());
+		IModel model = new JarClassesAnalyser().createModelFromJar(url.getPath());
 		Entity e = Entities.findEntityByName(model, "ModelExporterImpl");
 
 		assertEquals("ModelExporterImpl", e.getName());
@@ -34,7 +34,7 @@ public class JarFileAnalyzerTest {
 	public void endToEndTest() throws IOException, ParseError, WriterException {
 		URL url = Thread.currentThread().getContextClassLoader().getResource("sample-org.jar");
 
-		IModel model = new JarFileAnalyser().createModelFromJar(url.getPath());
+		IModel model = new JarClassesAnalyser().createModelFromJar(url.getPath());
 
 		DotWriter dotTextFactory = new DotWriter();
 		byte[] dotText = dotTextFactory.writeModel(model);

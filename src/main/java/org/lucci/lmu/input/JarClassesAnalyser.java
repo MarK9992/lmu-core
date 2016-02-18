@@ -18,7 +18,7 @@ import java.net.URLClassLoader;
 /**
  * @author luc.hogie, Marc Karassev
  */
-public class JarFileAnalyser extends ClassesAnalyzer implements JarAnalyzer {
+public class JarClassesAnalyser extends ClassesAnalyzer implements JarAnalyzer {
 
     @Override
     public IModel createModelFromJar(String jarPath) throws IOException {

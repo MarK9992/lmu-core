@@ -26,73 +26,60 @@ public class ManifestAnalyzer implements JarAnalyzer {
 
     @Override
     public IModel createModelFromJar(String jarPath) throws IOException {
-        return getManifestInfo(jarPath);
-    }
+        File jarFile = new File(jarPath);
+        Manifest manifest;
+        FileInputStream fis = new FileInputStream(jarFile);
+        JarInputStream jis = new JarInputStream(fis);
+        manifest = jis.getManifest();
+        Attributes mainAttribs = manifest.getMainAttributes();
 
-    public static IModel getManifestInfo(String pathToJarFile) throws IOException {
-        File file = new File(pathToJarFile);
-        return getManifestInfo(file);
-    }
+        List<Attributes.Name> targetKeys = Arrays.asList(new Attributes.Name("Bundle-ClassPath"));
+        //new Attributes.Name("Require-Bundle"),new Attributes.Name("Import-Package"));
 
-    public static IModel getManifestInfo(File jarFile) throws IOException {
-        try{
-            Manifest manifest;
-            FileInputStream fis = new FileInputStream(jarFile);
-            JarInputStream jis = new JarInputStream(fis);
-            manifest = jis.getManifest();
-            Attributes mainAttribs = manifest.getMainAttributes();
-
-            List<Attributes.Name> targetKeys = Arrays.asList(new Attributes.Name("Bundle-ClassPath"));
-            //new Attributes.Name("Require-Bundle"),new Attributes.Name("Import-Package"));
-
-            IModel model = new Model();
-            ArrayList<String> dependencies = new ArrayList<>();
-            LOGGER.debug("iterating on dependencies");
-            for(Attributes.Name currentTargetKey : targetKeys) {
-                System.out.println("\n===========================");
-                System.out.println("Target Key : " + currentTargetKey);
-                System.out.println("Result : \n" + mainAttribs.get(currentTargetKey));
-                dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
-                // at this only the name of entities is known
-                // neither members nor relation are known
-                // let's find them
-                //fillModel(model);
-            }
-            Entity root = new DeploymentUnit();
-            String rootName = deleteUnauthorizedToken(jarFile.getName());
-            root.setName(rootName);
-            root.setNamespace(rootName);
-            model.addEntity(root);
-            for (String dependency: dependencies) {
-                LOGGER.debug(dependency);
-                if (!dependency.equals(".")) {
-
-                    String nameOfFileDependency = deleteUnauthorizedToken(dependency);
-
-                    Entity entity = new DeploymentUnit();
-                    entity.setName(nameOfFileDependency);
-                    entity.setNamespace(nameOfFileDependency);
-
-                    LOGGER.debug("Creating new entity : " + entity.getName());
-
-                    model.addEntity(entity);
-                }
-            }
-            for (Entity entity: model.getEntities()) {
-                if (!entity.getName().equals(rootName)) {
-                      model.addRelation(new DependencyRelation(root, entity));
-                }
-            }
-            LOGGER.debug("end of dependencies iteration");
-
-            //new ModelExporterImpl().exportToFile(model, "/home/mark/bureau", "png");
-            //String dependencies = mainAttribs.getValue("Import-Package");
-            jis.close();
-            return model;
-        }catch(Throwable t){
-            t.printStackTrace();
-            return null;
+        IModel model = new Model();
+        ArrayList<String> dependencies = new ArrayList<>();
+        LOGGER.debug("iterating on dependencies");
+        for(Attributes.Name currentTargetKey : targetKeys) {
+            System.out.println("\n===========================");
+            System.out.println("Target Key : " + currentTargetKey);
+            System.out.println("Result : \n" + mainAttribs.get(currentTargetKey));
+            dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
+            // at this only the name of entities is known
+            // neither members nor relation are known
+            // let's find them
+            //fillModel(model);
         }
+        Entity root = new DeploymentUnit();
+        String rootName = deleteUnauthorizedToken(jarFile.getName());
+        root.setName(rootName);
+        root.setNamespace(rootName);
+        model.addEntity(root);
+        for (String dependency: dependencies) {
+            LOGGER.debug(dependency);
+            if (!dependency.equals(".")) {
+
+                String nameOfFileDependency = deleteUnauthorizedToken(dependency);
+
+                Entity entity = new DeploymentUnit();
+                entity.setName(nameOfFileDependency);
+                entity.setNamespace(nameOfFileDependency);
+
+                LOGGER.debug("Creating new entity : " + entity.getName());
+
+                model.addEntity(entity);
+            }
+        }
+        for (Entity entity: model.getEntities()) {
+            if (!entity.getName().equals(rootName)) {
+                model.addRelation(new DependencyRelation(root, entity));
+            }
+        }
+        LOGGER.debug("end of dependencies iteration");
+
+        //new ModelExporterImpl().exportToFile(model, "/home/mark/bureau", "png");
+        //String dependencies = mainAttribs.getValue("Import-Package");
+        jis.close();
+        return model;
     }
 
     static String deleteUnauthorizedToken(String str) {
