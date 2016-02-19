@@ -37,8 +37,11 @@ public class ManifestAnalyzer implements JarAnalyzer {
         String rootName = deleteUnauthorizedToken(jarFile.getName());
 
         for(Attributes.Name currentTargetKey : targetKeys) {
-            dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
+            if(mainAttribs.get(currentTargetKey) != null) {
+                dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
+            }
         }
+
         LOGGER.debug("iterating on dependencies and adding entities to model");
         root.setName(rootName);
         root.setNamespace(rootName);
@@ -73,5 +76,13 @@ public class ManifestAnalyzer implements JarAnalyzer {
         nameOfFileDependency = nameOfFileDependency.replace("-", "_");
 
         return  nameOfFileDependency;
+    }
+
+    public IModel createModelFromPlugin(String pluginPath) {
+
+        // TODO
+
+        return null;
+
     }
 }

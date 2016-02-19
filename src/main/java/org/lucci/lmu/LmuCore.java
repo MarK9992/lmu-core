@@ -44,4 +44,6 @@ public interface LmuCore {
     void analyzeJar(String jarPath, String outputPath, String outputFormat);
 
 	void analyzeJarDependencies(String jarPath, String outputPath, String outputFormat);
+
+	void analyzePluginDependencies(String pluginPath, String outPath, String outputFormat);
 }

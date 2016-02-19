@@ -56,4 +56,15 @@ public class LmuCoreController implements LmuCore {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void analyzePluginDependencies(String pluginPath, String outPath, String outputFormat) {
+        try{
+            IModel model = new ManifestAnalyzer().createModelFromPlugin(pluginPath);
+
+            modelExporter.exportToFile(model, outPath, outputFormat);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
