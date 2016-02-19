@@ -22,6 +22,10 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
     protected static final List<Attributes.Name> targetKeys = Arrays.asList(new Attributes.Name("Bundle-ClassPath"),
             new Attributes.Name("Require-Bundle"));
 
+    // Attributes
+
+    ArrayList<String> dependencies = new ArrayList<>();
+
     // Methods
 
     @Override
@@ -42,17 +46,13 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
 
     protected IModel createModelFromManifest(Manifest manifest, String rootName) {
         Attributes mainAttribs = manifest.getMainAttributes();
-        ArrayList<String> dependencies = new ArrayList<>();
         Entity root = new DeploymentUnit(), entity;
         String entityName;
-        String[] attributes;
 
         rootName = deleteUnauthorizedToken(rootName);
         for(Attributes.Name currentTargetKey : targetKeys) {
             if(mainAttribs.get(currentTargetKey) != null) {
-                attributes = ((String) mainAttribs.get(currentTargetKey)).split(",");
-
-                dependencies.addAll(Arrays.asList(attributes));
+                dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
             }
             else {
                 LOGGER.debug("no dependencies in " + rootName + " manifest");
@@ -84,42 +84,21 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
         JarInputStream jis = new JarInputStream(new FileInputStream(jarFile));
         Manifest manifest = jis.getManifest();
 
+        jis.close();
         if (manifest == null) {
             LOGGER.debug("no manifest in " + jarPath);
         }
         else {
-            Attributes mainAttribs = manifest.getMainAttributes();
-            ArrayList<String> dependencies = new ArrayList<>();
-            Entity root = new DeploymentUnit(), entity;
-            String rootName = deleteUnauthorizedToken(jarFile.getName());
-            String entityName, tmpPath;
+            String tmpPath;
+            ManifestAnalyzer next;
 
-            for(Attributes.Name currentTargetKey : targetKeys) {
-                if(mainAttribs.get(currentTargetKey) != null) {
-                    dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
-                }
-                else {
-                    LOGGER.debug("no dependencies in " + jarPath + " manifest");
-                }
-            }
-            root.setName(rootName);
-            root.setNamespace(rootName);
-            model.addEntity(root);
+            createModelFromManifest(manifest, jarFile.getName());
             for (String dependency: dependencies) {
-                LOGGER.debug("dependency: " + dependency);
-                if (!dependency.equals(".")) {
-                    entityName = deleteUnauthorizedToken(dependency);
-                    entity = new DeploymentUnit();
-                    entity.setName(entityName);
-                    entity.setNamespace(entityName);
-                    LOGGER.debug("Creating new entity : " + entity.getName());
-                    model.addEntity(entity);
-                    model.addRelation(new DependencyRelation(root, entity));
-                    jis.close();
-                    tmpPath = findAndExtractJarEntry(dependency, jarPath);
-                    if (tmpPath !=  null) {
-                        populateModel(tmpPath);
-                    }
+                tmpPath = findAndExtractJarEntry(dependency, jarPath);
+                if (tmpPath !=  null) {
+                    next = new ManifestAnalyzer();
+                    next.setModel(model);
+                    next.populateModel(tmpPath);
                 }
             }
         }
