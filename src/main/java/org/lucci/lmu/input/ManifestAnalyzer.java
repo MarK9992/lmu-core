@@ -4,11 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.LmuCore;
 import org.lucci.lmu.model.*;
-import org.lucci.lmu.output.ModelExporterImpl;
-import sun.misc.Regexp;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,11 +13,8 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.jar.*;
 import java.util.jar.Attributes;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.zip.ZipEntry;
 
-public class ManifestAnalyzer implements JarAnalyzer {
+public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
 
     // Constants
 
@@ -119,24 +113,5 @@ public class ManifestAnalyzer implements JarAnalyzer {
             }
         }
         return null;
-    }
-
-    private static String deleteUnauthorizedToken(String str) {
-        String[] dependenciesPath = str.split("/");  //  Retrieve only file name
-        String nameOfFileDependency = dependenciesPath[dependenciesPath.length - 1];
-
-        //  Delete unauthorized token (for dotWriter)
-        nameOfFileDependency = nameOfFileDependency.replace(".", "_");
-        nameOfFileDependency = nameOfFileDependency.replace("-", "_");
-
-        return  nameOfFileDependency;
-    }
-
-    public IModel createModelFromPlugin(String pluginPath) {
-
-        // TODO
-
-        return null;
-
     }
 }

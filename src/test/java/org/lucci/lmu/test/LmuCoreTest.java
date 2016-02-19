@@ -33,9 +33,11 @@ public class LmuCoreTest {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final LmuCore CONTROLLER = new LmuCoreController();
     private static final String PACKAGE_FULL = "org.lucci.lmu.input", JAR_NAME = "sample-org", CLASSES_NAME = "inputAndLmuCore",
-        CLASS1_FULL = "org.lucci.lmu.LmuCore", CLASS2_FULL = "org.lucci.lmu.LmuCoreController", DEPENDENCIES_NAME = "bkp-dependencies";;
+        CLASS1_FULL = "org.lucci.lmu.LmuCore", CLASS2_FULL = "org.lucci.lmu.LmuCoreController", DEPENDENCIES_NAME = "bkp-dependencies",
+        PLUGIN_NAME = "lmu-eclipse-plugin";
     private static final URL SAMPLE_ORG_URL = Thread.currentThread().getContextClassLoader().getResource(JAR_NAME + ".jar"),
-        BKP_URL = Thread.currentThread().getContextClassLoader().getResource("lmu-eclipse-plugin-bkp.jar");
+        BKP_URL = Thread.currentThread().getContextClassLoader().getResource("lmu-eclipse-plugin-bkp.jar"),
+        PLUGIN_URL = Thread.currentThread().getContextClassLoader().getResource("lmu-eclipse-plugin-bkp");
     private static final ArrayList<Class<?>> CLASSES = new ArrayList<>();
 
     // Set-ups and tear-downs
@@ -65,9 +67,28 @@ public class LmuCoreTest {
 
         assertNotNull(SAMPLE_ORG_URL);
         assertNotNull(BKP_URL);
+        assertNotNull(PLUGIN_URL);
     }
 
     // Tests
+
+    @Test
+    public void analyzerPluginDependenciesToPdfTest() throws FileNotFoundException {
+        final String FORMAT = "pdf";
+
+        CONTROLLER.analyzePluginDependencies(PLUGIN_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + PLUGIN_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PLUGIN_NAME + "." + FORMAT);
+        // check the files contents by yourself now
+    }
+
+    @Test
+    public void analyzerPluginDependenciesToPngTest() throws FileNotFoundException {
+        final String FORMAT = "png";
+
+        CONTROLLER.analyzePluginDependencies(PLUGIN_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + PLUGIN_NAME, FORMAT);
+        new FileInputStream(LmuCore.DEFAULT_OUTPUT_PATH + PLUGIN_NAME + "." + FORMAT);
+        // check the files contents by yourself now
+    }
 
     @Test
     public void analyzeJarDependenciesToPngTest() throws FileNotFoundException {

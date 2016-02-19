@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.input.ClassesAnalyzer;
 import org.lucci.lmu.input.JarClassesAnalyser;
 import org.lucci.lmu.input.ManifestAnalyzer;
+import org.lucci.lmu.input.PluginAnalyzer;
 import org.lucci.lmu.model.IModel;
 import org.lucci.lmu.output.ModelExporter;
 import org.lucci.lmu.output.ModelExporterImpl;
@@ -60,7 +61,7 @@ public class LmuCoreController implements LmuCore {
     @Override
     public void analyzePluginDependencies(String pluginPath, String outPath, String outputFormat) {
         try{
-            IModel model = new ManifestAnalyzer().createModelFromPlugin(pluginPath);
+            IModel model = new PluginAnalyzer().createModelFromPlugin(pluginPath);
 
             modelExporter.exportToFile(model, outPath, outputFormat);
         } catch (Exception e) {

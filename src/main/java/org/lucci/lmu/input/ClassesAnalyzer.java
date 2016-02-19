@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * @author Marc Karassev
  */
-public class ClassesAnalyzer {
+public class ClassesAnalyzer extends Analyzer {
 
     // Constants
 
