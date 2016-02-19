@@ -25,8 +25,6 @@ public class ClassesAnalyzer extends Analyzer {
     // Methods
 
     protected IModel createModel() {
-        model = new Model();
-
         fillPrimitiveMap();
         // take all the classes in the jar files and convert them to LMU
         // Entities

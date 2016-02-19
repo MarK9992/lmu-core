@@ -26,7 +26,6 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
 
     @Override
     public IModel createModelFromJar(String jarPath) throws IOException {
-        model = new Model();
         File file = new File(LmuCore.DEFAULT_OUTPUT_PATH);
         DirectoryStream<Path> stream;
 
@@ -38,6 +37,45 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
                 Files.delete(filePath);
             }
         }
+        return model;
+    }
+
+    protected IModel createModelFromManifest(Manifest manifest, String rootName) {
+        Attributes mainAttribs = manifest.getMainAttributes();
+        ArrayList<String> dependencies = new ArrayList<>();
+        Entity root = new DeploymentUnit(), entity;
+        String entityName;
+        String[] attributes;
+
+        rootName = deleteUnauthorizedToken(rootName);
+        for(Attributes.Name currentTargetKey : targetKeys) {
+            if(mainAttribs.get(currentTargetKey) != null) {
+                attributes = ((String) mainAttribs.get(currentTargetKey)).split(",");
+
+                dependencies.addAll(Arrays.asList(attributes));
+            }
+            else {
+                LOGGER.debug("no dependencies in " + rootName + " manifest");
+            }
+        }
+        root.setName(rootName);
+        root.setNamespace(rootName);
+        if (!model.getEntities().contains(root)) {
+            model.addEntity(root);
+        }
+        for (String dependency: dependencies) {
+            LOGGER.debug("dependency: " + dependency);
+            if (!dependency.equals(".")) {
+                entityName = deleteUnauthorizedToken(dependency);
+                entity = new DeploymentUnit();
+                entity.setName(entityName);
+                entity.setNamespace(entityName);
+                LOGGER.debug("Creating new entity : " + entity.getName());
+                model.addEntity(entity);
+                model.addRelation(new DependencyRelation(root, entity));
+            }
+        }
+
         return model;
     }
 

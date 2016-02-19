@@ -21,6 +21,7 @@ public abstract class Analyzer {
         //  Delete unauthorized token (for dotWriter)
         nameOfFileDependency = nameOfFileDependency.replace(".", "_");
         nameOfFileDependency = nameOfFileDependency.replace("-", "_");
+        nameOfFileDependency = nameOfFileDependency.replace("\"", "'");
 
         return  nameOfFileDependency;
     }

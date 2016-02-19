@@ -32,10 +32,12 @@ public class PluginAnalyzer extends ManifestAnalyzer {
     // Methods
 
     public IModel createModelFromPlugin(String pluginPath) throws IOException {
-        model = new Model();
+        File manifestFile = new File(pluginPath + MANIFEST_PATH);
         Set<String> dependencies = new HashSet<>();
-
         File fXmlFile = new File(pluginPath + PLUGIN_PATH);
+        String rootName = deleteUnauthorizedToken(fXmlFile.getName());
+        Entity root = new DeploymentUnit(), entity;
+
         if (fXmlFile.exists()) {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             try {
@@ -55,13 +57,9 @@ public class PluginAnalyzer extends ManifestAnalyzer {
                 e.printStackTrace();
             }
         }
-
-        String rootName = deleteUnauthorizedToken(fXmlFile.getName());
-        Entity root = new DeploymentUnit(), entity;
         root.setNamespace(rootName);
         root.setName(rootName);
         model.addEntity(root);
-
         for(String dependencyName : dependencies) {
             entity = new DeploymentUnit();
             entity.setName(dependencyName);
@@ -70,43 +68,6 @@ public class PluginAnalyzer extends ManifestAnalyzer {
             model.addRelation(new DependencyRelation(root, entity));
         }
 
-        File manifestFile = new File(pluginPath + MANIFEST_PATH);
-
-        if (!manifestFile.exists()) {
-            LOGGER.debug("no manifest at " + pluginPath + MANIFEST_PATH);
-        }
-        else {
-            Manifest manifest = new Manifest(new FileInputStream(manifestFile));
-            Attributes mainAttribs = manifest.getMainAttributes();
-            ArrayList<String> manifestDependencies = new ArrayList<>();
-            String entityName, tmpPath;
-
-            for(java.util.jar.Attributes.Name currentTargetKey : targetKeys) {
-                if(mainAttribs.get(currentTargetKey) != null) {
-                    manifestDependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
-                }
-                else {
-                    LOGGER.debug("no dependencies in " + pluginPath + MANIFEST_PATH + " manifest");
-                }
-            }
-            for (String dependency: manifestDependencies) {
-                LOGGER.debug("dependency: " + dependency);
-                if (!dependency.equals(".")) {
-                    entityName = deleteUnauthorizedToken(dependency);
-                    entity = new DeploymentUnit();
-                    entity.setName(entityName);
-                    entity.setNamespace(entityName);
-                    LOGGER.debug("Creating new entity : " + entity.getName());
-                    model.addEntity(entity);
-                    model.addRelation(new DependencyRelation(root, entity));
-//                    jis.close();
-//                    tmpPath = findAndExtractJarEntry(dependency, jarPath);
-//                    if (tmpPath !=  null) {
-//                        populateModel(model, tmpPath);
-//                    }
-                }
-            }
-        }
-        return model;
+        return createModelFromManifest(new Manifest(new FileInputStream(manifestFile)), rootName);
     }
 }
