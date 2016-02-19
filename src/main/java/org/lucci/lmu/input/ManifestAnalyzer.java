@@ -5,17 +5,19 @@ import org.apache.logging.log4j.Logger;
 import org.lucci.lmu.LmuCore;
 import org.lucci.lmu.model.*;
 import org.lucci.lmu.output.ModelExporterImpl;
+import sun.misc.Regexp;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.jar.*;
 import java.util.jar.Attributes;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 
 public class ManifestAnalyzer implements JarAnalyzer {
@@ -30,8 +32,17 @@ public class ManifestAnalyzer implements JarAnalyzer {
     @Override
     public IModel createModelFromJar(String jarPath) throws IOException {
         IModel model = new Model();
+        File file = new File(LmuCore.DEFAULT_OUTPUT_PATH);
+        DirectoryStream<Path> stream;
 
+        file.mkdirs();
         populateModel(model, jarPath, 0);
+        stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
+        for (Path filePath: stream) {
+            if (filePath.toString().endsWith(".jar")) {
+                Files.delete(filePath);
+            }
+        }
         return model;
     }
 
@@ -49,14 +60,14 @@ public class ManifestAnalyzer implements JarAnalyzer {
             Entity root = new DeploymentUnit(), entity;
             String rootName = deleteUnauthorizedToken(jarFile.getName());
             String entityName;
-            //String[] splitPath;
-
             for(Attributes.Name currentTargetKey : targetKeys) {
                 if(mainAttribs.get(currentTargetKey) != null) {
                     dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
                 }
+                else {
+                    LOGGER.debug("no dependencies in " + jarPath + " manifest");
+                }
             }
-            //LOGGER.debug("iterating on dependencies and adding entities to model");
             root.setName(rootName);
             root.setNamespace(rootName);
             model.addEntity(root);
@@ -71,28 +82,41 @@ public class ManifestAnalyzer implements JarAnalyzer {
                     model.addEntity(entity);
                     model.addRelation(new DependencyRelation(root, entity));
                     if (depth < 1) {
-                        //splitPath = dependency.split("/");
-                        //dependency = splitPath[splitPath.length - 1];
+                        jis.close();
                         LOGGER.debug("looking for dependency: " + dependency);
-
-//                        URL dependencyUrl = Thread.currentThread().getContextClassLoader().getResource(dependency);
-//                        if (dependencyUrl == null) {
-//                            LOGGER.warn("could not find dependency: " + dependency);
-//                        }
-//                        else {
-//                            LOGGER.debug("found dependency at: " + dependencyUrl.getPath());
-//                            populateModel(model, dependencyUrl.getPath(), depth + 1);
-//                        }
+                        populateModel(model, findAndExtractJarEntry(dependency, jarPath), depth + 1);
                     }
                 }
             }
-            jis.close();
         }
-        //LOGGER.debug("end of dependencies iteration");
     }
 
-    private void findJarEntry(JarInputStream jis, String entry) {
+    private String findAndExtractJarEntry(String entry, String jarFile) throws IOException {
+        JarFile jar = new JarFile(jarFile);
+        Enumeration enumEntries = jar.entries();
+        JarEntry jarEntry;
+        File file;
+        InputStream is;
+        FileOutputStream fos;
+        String[] splitPath;
 
+        while (enumEntries.hasMoreElements()) {
+            jarEntry = (JarEntry) enumEntries.nextElement();
+            if (jarEntry.getName().equals(entry)) {
+                LOGGER.debug("found dependency: " + entry);
+                splitPath = entry.split("[/\\\\]");
+                file = new File(LmuCore.DEFAULT_OUTPUT_PATH + splitPath[splitPath.length - 1]);
+                is = jar.getInputStream(jarEntry);
+                fos = new FileOutputStream(file);
+                while (is.available() > 0) {
+                    fos.write(is.read());
+                }
+                fos.close();
+                is.close();
+                return LmuCore.DEFAULT_OUTPUT_PATH + splitPath[splitPath.length - 1];
+            }
+        }
+        return null;
     }
 
     private static String deleteUnauthorizedToken(String str) {
