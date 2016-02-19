@@ -1,9 +1,18 @@
 package org.lucci.lmu.input;
 
+import org.lucci.lmu.model.IModel;
+import org.lucci.lmu.model.Model;
+
 /**
  * @author Marc Karassev
  */
 public abstract class Analyzer {
+
+    // Attributes
+
+    protected IModel model = new Model();
+
+    // Methods
 
     public static String deleteUnauthorizedToken(String str) {
         String[] dependenciesPath = str.split("/");  //  Retrieve only file name
@@ -14,5 +23,15 @@ public abstract class Analyzer {
         nameOfFileDependency = nameOfFileDependency.replace("-", "_");
 
         return  nameOfFileDependency;
+    }
+
+    // Getters and setters
+
+    public IModel getModel() {
+        return model;
+    }
+
+    public void setModel(IModel model) {
+        this.model = model;
     }
 }

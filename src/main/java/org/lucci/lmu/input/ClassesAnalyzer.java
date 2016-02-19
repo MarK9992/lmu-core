@@ -25,9 +25,9 @@ public class ClassesAnalyzer extends Analyzer {
     // Methods
 
     protected IModel createModel() {
-        IModel model = new Model();
+        model = new Model();
 
-        fillPrimitiveMap(model);
+        fillPrimitiveMap();
         // take all the classes in the jar files and convert them to LMU
         // Entities
         LOGGER.debug("iterating on classes");
@@ -48,7 +48,7 @@ public class ClassesAnalyzer extends Analyzer {
         // at this only the name of entities is known
         // neither members nor relation are known
         // let's find them
-        fillModel(model);
+        fillModel();
 
         return model;
     }
@@ -58,7 +58,7 @@ public class ClassesAnalyzer extends Analyzer {
         return createModel();
     }
 
-    protected void fillPrimitiveMap(IModel model) {
+    protected void fillPrimitiveMap() {
         primitiveMap.put(void.class, Entities.findEntityByName(model, "void"));
         primitiveMap.put(int.class, Entities.findEntityByName(model, "int"));
         primitiveMap.put(long.class, Entities.findEntityByName(model, "long"));
@@ -84,7 +84,7 @@ public class ClassesAnalyzer extends Analyzer {
         return c.getPackage() == null ? Entity.DEFAULT_NAMESPACE : c.getPackage().getName();
     }
 
-    protected void initInheritance(Class<?> clazz, Entity entity, IModel model) {
+    protected void initInheritance(Class<?> clazz, Entity entity) {
         // this collection will store the super class and super interfaces for
         // the given class
         Set<Class<?>> supers = new HashSet<Class<?>>();
@@ -99,7 +99,7 @@ public class ClassesAnalyzer extends Analyzer {
         supers.addAll(Arrays.asList(clazz.getInterfaces()));
 
         for (Class<?> c : supers) {
-            Entity superentity = getEntity(model, c);
+            Entity superentity = getEntity(c);
 
             // if the superentity exists in the model
             if (superentity != null) {
@@ -109,7 +109,7 @@ public class ClassesAnalyzer extends Analyzer {
         }
     }
 
-    protected Entity getEntity(IModel model, Class<?> c) {
+    protected Entity getEntity(Class<?> c) {
         Entity e = (Entity) primitiveMap.get(c);
 
         if (e == null) {
@@ -126,7 +126,7 @@ public class ClassesAnalyzer extends Analyzer {
         return e;
     }
 
-    protected void initAttributes(Class<?> clazz, Entity entity, IModel model) {
+    protected void initAttributes(Class<?> clazz, Entity entity) {
         for (Field field : clazz.getDeclaredFields()) {
             // if the field is not static
             if ((field.getModifiers() & Modifier.STATIC) == 0) {
@@ -137,7 +137,7 @@ public class ClassesAnalyzer extends Analyzer {
                     for (Type parameterType : ((ParameterizedType) fieldType).getActualTypeArguments()) {
                         if (parameterType instanceof Class<?>) {
                             Class<?> parameterClass = (Class<?>) parameterType;
-                            Entity parameterEntity = getEntity(model, parameterClass);
+                            Entity parameterEntity = getEntity(parameterClass);
 
                             if (!parameterEntity.isPrimitive()) {
                                 AssociationRelation rel = new AssociationRelation(parameterEntity, entity);
@@ -157,7 +157,7 @@ public class ClassesAnalyzer extends Analyzer {
                         }
                     }
                 } else {
-                    Entity fieldTypeEntity = getEntity(model, field.getType());
+                    Entity fieldTypeEntity = getEntity(field.getType());
 
                     if (fieldTypeEntity != null) {
                         if (fieldTypeEntity.isPrimitive()) {
@@ -187,10 +187,10 @@ public class ClassesAnalyzer extends Analyzer {
         }
     }
 
-    protected void initOperations(Class<?> clazz, Entity entity, IModel model) {
+    protected void initOperations(Class<?> clazz, Entity entity) {
         try {
             for (Method method : clazz.getDeclaredMethods()) {
-                Entity typeEntity = getEntity(model, method.getReturnType());
+                Entity typeEntity = getEntity(method.getReturnType());
 
                 if (typeEntity != null) {
                     Operation op = new Operation();
@@ -202,7 +202,7 @@ public class ClassesAnalyzer extends Analyzer {
                     Class<?>[] parms = method.getParameterTypes();
 
                     for (int j = 0; j < parms.length; ++j) {
-                        Entity parmEntity = getEntity(model, parms[j]);
+                        Entity parmEntity = getEntity(parms[j]);
 
                         if (parmEntity == null) {
                             return;
@@ -253,14 +253,14 @@ public class ClassesAnalyzer extends Analyzer {
         }
     }
 
-    protected void fillModel(IModel model) {
+    protected void fillModel() {
         for (Entity entity : new HashSet<Entity>(model.getEntities())) {
             if (!entity.isPrimitive()) {
                 Class<?> clazz = entity_class.get(entity);
                 LOGGER.debug(clazz);
-                initInheritance(clazz, entity, model);
-                initAttributes(clazz, entity, model);
-                initOperations(clazz, entity, model);
+                initInheritance(clazz, entity);
+                initAttributes(clazz, entity);
+                initOperations(clazz, entity);
             }
         }
     }

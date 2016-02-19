@@ -19,18 +19,18 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
     // Constants
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final List<Attributes.Name> targetKeys = Collections.singletonList(new Attributes.Name("Bundle-ClassPath"));
+    protected static final List<Attributes.Name> targetKeys = Collections.singletonList(new Attributes.Name("Bundle-ClassPath"));
 
     // Methods
 
     @Override
     public IModel createModelFromJar(String jarPath) throws IOException {
-        IModel model = new Model();
+        model = new Model();
         File file = new File(LmuCore.DEFAULT_OUTPUT_PATH);
         DirectoryStream<Path> stream;
 
         file.mkdirs();
-        populateModel(model, jarPath);
+        populateModel(jarPath);
         stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
         for (Path filePath: stream) {
             if (filePath.toString().endsWith(".jar")) {
@@ -40,7 +40,7 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
         return model;
     }
 
-    private void populateModel(IModel model, String jarPath) throws IOException {
+    private void populateModel(String jarPath) throws IOException {
         File jarFile = new File(jarPath);
         JarInputStream jis = new JarInputStream(new FileInputStream(jarFile));
         Manifest manifest = jis.getManifest();
@@ -79,7 +79,7 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
                     jis.close();
                     tmpPath = findAndExtractJarEntry(dependency, jarPath);
                     if (tmpPath !=  null) {
-                        populateModel(model, tmpPath);
+                        populateModel(tmpPath);
                     }
                 }
             }

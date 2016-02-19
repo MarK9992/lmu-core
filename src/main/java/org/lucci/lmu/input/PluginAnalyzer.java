@@ -22,22 +22,17 @@ import java.util.jar.Attributes;
 /**
  * @author Marc Karassev
  */
-public class PluginAnalyzer extends Analyzer {
+public class PluginAnalyzer extends ManifestAnalyzer {
 
     // Constants
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final List<java.util.jar.Attributes.Name> targetKeys = Collections.singletonList(new java.util.jar.Attributes.Name("Bundle-ClassPath"));
     private static final String PLUGIN_PATH = "/plugin.xml", MANIFEST_PATH = "/META-INF/MANIFEST.MF";
-
-    // Attributes
-
-    private ManifestAnalyzer manifestAnalyzer = new ManifestAnalyzer();
 
     // Methods
 
-    public IModel createModelFromPlugin(String pluginPath) throws ParserConfigurationException, IOException, SAXException {
-        IModel model = new Model();
+    public IModel createModelFromPlugin(String pluginPath) throws IOException {
+        model = new Model();
         Set<String> dependencies = new HashSet<>();
 
         File fXmlFile = new File(pluginPath + PLUGIN_PATH);
@@ -56,7 +51,7 @@ public class PluginAnalyzer extends Analyzer {
                         dependencies.add(s);
                     }
                 }
-            } catch (SAXException | IOException | ParserConfigurationException e) {
+            } catch (SAXException | ParserConfigurationException e) {
                 e.printStackTrace();
             }
         }
