@@ -3,7 +3,6 @@ package org.lucci.lmu.test.output;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.lucci.lmu.LmuCore;
 import org.lucci.lmu.input.ClassesAnalyzer;
@@ -31,7 +30,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author Marc Karassev
  */
-@Ignore
 public class ModelExporterTest {
 
     // Constants
