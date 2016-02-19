@@ -36,7 +36,7 @@ public class ManifestAnalyzer implements JarAnalyzer {
         DirectoryStream<Path> stream;
 
         file.mkdirs();
-        populateModel(model, jarPath, 0);
+        populateModel(model, jarPath);
         stream = Files.newDirectoryStream(Paths.get(LmuCore.DEFAULT_OUTPUT_PATH));
         for (Path filePath: stream) {
             if (filePath.toString().endsWith(".jar")) {
@@ -46,7 +46,7 @@ public class ManifestAnalyzer implements JarAnalyzer {
         return model;
     }
 
-    private void populateModel(IModel model, String jarPath, int depth) throws IOException {
+    private void populateModel(IModel model, String jarPath) throws IOException {
         File jarFile = new File(jarPath);
         JarInputStream jis = new JarInputStream(new FileInputStream(jarFile));
         Manifest manifest = jis.getManifest();
@@ -59,7 +59,8 @@ public class ManifestAnalyzer implements JarAnalyzer {
             ArrayList<String> dependencies = new ArrayList<>();
             Entity root = new DeploymentUnit(), entity;
             String rootName = deleteUnauthorizedToken(jarFile.getName());
-            String entityName;
+            String entityName, tmpPath;
+
             for(Attributes.Name currentTargetKey : targetKeys) {
                 if(mainAttribs.get(currentTargetKey) != null) {
                     dependencies.addAll(Arrays.asList(((String) mainAttribs.get(currentTargetKey)).split(",")));
@@ -81,10 +82,10 @@ public class ManifestAnalyzer implements JarAnalyzer {
                     LOGGER.debug("Creating new entity : " + entity.getName());
                     model.addEntity(entity);
                     model.addRelation(new DependencyRelation(root, entity));
-                    if (depth < 1) {
-                        jis.close();
-                        LOGGER.debug("looking for dependency: " + dependency);
-                        populateModel(model, findAndExtractJarEntry(dependency, jarPath), depth + 1);
+                    jis.close();
+                    tmpPath = findAndExtractJarEntry(dependency, jarPath);
+                    if (tmpPath !=  null) {
+                        populateModel(model, tmpPath);
                     }
                 }
             }
@@ -100,6 +101,7 @@ public class ManifestAnalyzer implements JarAnalyzer {
         FileOutputStream fos;
         String[] splitPath;
 
+        LOGGER.debug("looking for dependency: " + entry);
         while (enumEntries.hasMoreElements()) {
             jarEntry = (JarEntry) enumEntries.nextElement();
             if (jarEntry.getName().equals(entry)) {
