@@ -19,7 +19,8 @@ public class ManifestAnalyzer extends Analyzer implements JarAnalyzer {
     // Constants
 
     private static final Logger LOGGER = LogManager.getLogger();
-    protected static final List<Attributes.Name> targetKeys = Collections.singletonList(new Attributes.Name("Bundle-ClassPath"));
+    protected static final List<Attributes.Name> targetKeys = Arrays.asList(new Attributes.Name("Bundle-ClassPath"),
+            new Attributes.Name("Require-Bundle"));
 
     // Methods
 
