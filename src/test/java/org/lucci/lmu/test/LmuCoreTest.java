@@ -73,7 +73,7 @@ public class LmuCoreTest {
     // Tests
 
     @Test
-    public void analyzerPluginDependenciesToPdfTest() throws FileNotFoundException {
+    public void analyzePluginDependenciesToPdfTest() throws FileNotFoundException {
         final String FORMAT = "pdf";
 
         CONTROLLER.analyzePluginDependencies(PLUGIN_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + PLUGIN_NAME, FORMAT);
@@ -82,7 +82,7 @@ public class LmuCoreTest {
     }
 
     @Test
-    public void analyzerPluginDependenciesToPngTest() throws FileNotFoundException {
+    public void analyzePluginDependenciesToPngTest() throws FileNotFoundException {
         final String FORMAT = "png";
 
         CONTROLLER.analyzePluginDependencies(PLUGIN_URL.getPath(), LmuCore.DEFAULT_OUTPUT_PATH + PLUGIN_NAME, FORMAT);
